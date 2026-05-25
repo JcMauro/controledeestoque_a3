@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class ConexaoDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/db_controledeestoque";
     private static final String USER = "root";
-    private static final String PASSWORD = "070600@"; 
+    private static final String PASSWORD = "Unisul@1520"; 
 
     public static Connection getConexao() {
         Connection connection = null;

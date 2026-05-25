@@ -27,7 +27,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.1.0:exec</goal>
             </goals>
             <properties>
-                <exec.vmArgs>--enable-preview -agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
+                <exec.vmArgs>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>principal.Principal</exec.mainClass>
@@ -63,7 +63,7 @@
             </goals>
             <properties>
                 <exec.vmArgs></exec.vmArgs>
-                <exec.args>--enable-preview ${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
+                <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
                 <exec.mainClass>${packageClassName}</exec.mainClass>
                 <exec.classpathScope>${classPathScope}</exec.classpathScope>
@@ -80,7 +80,7 @@
             </goals>
             <properties>
                 <exec.vmArgs>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
-                <exec.args>--enable-preview ${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
+                <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
                 <exec.mainClass>${packageClassName}</exec.mainClass>
                 <exec.classpathScope>${classPathScope}</exec.classpathScope>
@@ -98,7 +98,7 @@
             </goals>
             <properties>
                 <exec.vmArgs></exec.vmArgs>
-                <exec.args>--enable-preview ${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
+                <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.mainClass>${packageClassName}</exec.mainClass>
                 <exec.executable>java</exec.executable>
                 <exec.classpathScope>${classPathScope}</exec.classpathScope>
@@ -113,7 +113,7 @@
                 <goal>test</goal>
             </goals>
             <properties>
-                <argLine>--enable-preview</argLine>
+                <argLine></argLine>
             </properties>
         </action>
         <action>
@@ -127,7 +127,7 @@
             </goals>
             <properties>
                 <test>${packageClassName}</test>
-                <argLine>--enable-preview</argLine>
+                <argLine></argLine>
             </properties>
         </action>
         <action>
@@ -144,7 +144,7 @@
                 <forkMode>once</forkMode>
                 <maven.surefire.debug>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</maven.surefire.debug>
                 <jpda.listen>true</jpda.listen>
-                <argLine>--enable-preview</argLine>
+                <argLine></argLine>
             </properties>
         </action>
         <action>
@@ -162,7 +162,7 @@
                 <maven.surefire.debug>${exec.vmArgs}</maven.surefire.debug>
                 <exec.vmArgs></exec.vmArgs>
                 <exec.args></exec.args>
-                <argLine>--enable-preview</argLine>
+                <argLine></argLine>
             </properties>
         </action>
     </actions>

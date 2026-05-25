@@ -16,6 +16,14 @@ import java.util.ArrayList;
  * @author luiz
  */
 public class CadastrarProdutoDao {
+    private Connection abrirConexao() throws SQLException {
+        Connection conn = ConexaoDAO.getConexao();
+        if (conn == null) {
+            throw new SQLException("Conexao nao estabelecida.");
+        }
+        return conn;
+    }
+
     // Retorna lista de produtos
     public ArrayList<CadastrarProduto> getListaProdutos() {
         ArrayList<CadastrarProduto> lista = new ArrayList<>();
@@ -23,7 +31,7 @@ public class CadastrarProdutoDao {
         String sql = "SELECT p.*, c.nome as categoria_nome FROM tb_produto p " +
                      "JOIN tb_categoria c ON p.categoria_id = c.id";
         
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              Statement stmt = conn.createStatement();
              ResultSet res = stmt.executeQuery(sql)) {
             
@@ -53,7 +61,7 @@ public class CadastrarProdutoDao {
         String sql = "INSERT INTO tb_produto(id, nome, preco, quantidade, min, max, unidade, categoria_id) " +
                      "VALUES(?,?,?,?,?,?,?,?)";
         
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, p.getId());
@@ -75,7 +83,7 @@ public class CadastrarProdutoDao {
 
     // Deletar produto 
     public boolean removerProduto(int id) {
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              Statement stmt = conn.createStatement()) {
             
             stmt.executeUpdate("DELETE FROM tb_produto WHERE id = " + id);
@@ -91,7 +99,7 @@ public class CadastrarProdutoDao {
         String sql = "UPDATE tb_produto SET nome=?, preco=?, quantidade=?, min=?, max=?, unidade=?, categoria_id=? " +
                      "WHERE id=?";
         
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setString(1, p.getNome());
@@ -114,7 +122,7 @@ public class CadastrarProdutoDao {
     // Retorna maior ID
     public int maiorID() {
         int maiorID = 0;
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              Statement stmt = conn.createStatement();
              ResultSet res = stmt.executeQuery("SELECT MAX(id) id FROM tb_produto")) {
             
@@ -134,7 +142,7 @@ public class CadastrarProdutoDao {
                      "JOIN tb_categoria c ON p.categoria_id = c.id " +
                      "WHERE p.id = ?";
         
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, id);
@@ -162,7 +170,7 @@ public class CadastrarProdutoDao {
     // Retorna lista de de produtos
     public ArrayList<String> getNomesProdutos() {
         ArrayList<String> nomes = new ArrayList<>();
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              Statement stmt = conn.createStatement();
              ResultSet res = stmt.executeQuery("SELECT nome FROM tb_produto")) {
             
@@ -182,7 +190,7 @@ public class CadastrarProdutoDao {
                      "JOIN tb_categoria c ON p.categoria_id = c.id " +
                      "WHERE p.nome = ?";
         
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setString(1, nome);

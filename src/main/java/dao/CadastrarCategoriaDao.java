@@ -17,11 +17,19 @@ import java.util.ArrayList;
  * @author luiz
  */
 public class CadastrarCategoriaDao {
+    private Connection abrirConexao() throws SQLException {
+        Connection conn = ConexaoDAO.getConexao();
+        if (conn == null) {
+            throw new SQLException("Conexao nao estabelecida.");
+        }
+        return conn;
+    }
+
     // Retorna lista de categorias
     public ArrayList<CadastrarCategoria> getLista() {
         ArrayList<CadastrarCategoria> lista = new ArrayList<>();
         
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              Statement stmt = conn.createStatement();
              ResultSet res = stmt.executeQuery("SELECT * FROM tb_categoria")) {
             
@@ -42,7 +50,7 @@ public class CadastrarCategoriaDao {
     public boolean inserirCategoria(CadastrarCategoria c) {
         String sql = "INSERT INTO tb_categoria(id, nome) VALUES(?,?)";
         
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, c.getId());
@@ -57,7 +65,7 @@ public class CadastrarCategoriaDao {
 
     // Deleta categoria 
     public boolean removerCategoria(int id) {
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              Statement stmt = conn.createStatement()) {
             
             stmt.executeUpdate("DELETE FROM tb_categoria WHERE id = " + id);
@@ -72,7 +80,7 @@ public class CadastrarCategoriaDao {
     public boolean atualizarCategoria(CadastrarCategoria c) {
         String sql = "UPDATE tb_categoria SET nome = ? WHERE id = ?";
         
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setString(1, c.getNome());
@@ -88,7 +96,7 @@ public class CadastrarCategoriaDao {
     // pegar maior ID
     public int maiorID() {
         int maiorID = 0;
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              Statement stmt = conn.createStatement();
              ResultSet res = stmt.executeQuery("SELECT MAX(id) id FROM tb_categoria")) {
             
@@ -106,7 +114,7 @@ public class CadastrarCategoriaDao {
         CadastrarCategoria categoria = null;
         String sql = "SELECT * FROM tb_categoria WHERE id = ?";
         
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setInt(1, id);
@@ -124,7 +132,7 @@ public class CadastrarCategoriaDao {
     // lista de nomes de categorias
     public ArrayList<String> getNomesCategorias() {
         ArrayList<String> nomes = new ArrayList<>();
-        try (Connection conn = ConexaoDAO.getConexao();
+        try (Connection conn = abrirConexao();
              Statement stmt = conn.createStatement();
              ResultSet res = stmt.executeQuery("SELECT nome FROM tb_categoria")) {
             

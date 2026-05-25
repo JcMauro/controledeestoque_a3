@@ -15,6 +15,20 @@ public class FrmLogin extends javax.swing.JFrame {
         loginDAO = new LoginDAO();
     }
 
+    public static void validarCamposLogin(String username, String senha) throws MensagemLogin {
+        if (username == null || username.trim().isEmpty()) {
+            throw new MensagemLogin("Por favor, informe o nome de usuário.");
+        }
+
+        if (username.trim().length() < 2) {
+            throw new MensagemLogin("O nome de usuário deve conter ao menos 2 caracteres.");
+        }
+
+        if (senha == null || senha.trim().isEmpty()) {
+            throw new MensagemLogin("Por favor, informe a senha.");
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -152,17 +166,7 @@ public class FrmLogin extends javax.swing.JFrame {
             String username = JTextLogin.getText().trim();
             String senha = new String(JPasswordLogin.getPassword()).trim();
 
-            if (username.isEmpty()) {
-                throw new MensagemLogin("Por favor, informe o nome de usuário.");
-            }
-
-            if (username.length() < 2) {
-                throw new MensagemLogin("O nome de usuário deve conter ao menos 2 caracteres.");
-            }
-
-            if (senha.isEmpty()) {
-                throw new MensagemLogin("Por favor, informe a senha.");
-            }
+            validarCamposLogin(username, senha);
 
             if (loginDAO.validarLogin(username, senha)) {
                 JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
