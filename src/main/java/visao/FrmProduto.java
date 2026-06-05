@@ -321,7 +321,7 @@ public class FrmProduto extends javax.swing.JFrame {
 
             try {
                 id = Integer.parseInt(jTextId.getText().trim());
-                if (id < 0) {
+                if (id <= 0) {
                     throw new Mensagem("ID deve ser maior que zero.");
 
                 }
@@ -357,6 +357,9 @@ public class FrmProduto extends javax.swing.JFrame {
                 quantidade = Integer.parseInt(jTextQuantidade.getText().trim());
                 min = Integer.parseInt(jTextQuantidade_min.getText().trim());
                 max = Integer.parseInt(jTextQuantidade_max.getText().trim());
+                if (quantidade < 0) {
+                    throw new Mensagem("Quantidade atual não pode ser negativa.");
+                }
                 if (min <= 0 || max <= 0) {
                     throw new Mensagem("Quantidades não podem ser nulas");
                 }

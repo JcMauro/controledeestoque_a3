@@ -91,7 +91,7 @@ public class FrmRemoverEstoque extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setText("Adicionar ao estoque");
+        jLabel1.setText("Remover do estoque");
 
         jTextRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +154,7 @@ public class FrmRemoverEstoque extends javax.swing.JFrame {
             String id = this.jTable1.getValueAt(this.jTable1.getSelectedRow(), 0).toString();
             String nome = this.jTable1.getValueAt(this.jTable1.getSelectedRow(), 1).toString();
             String quantidadeAtual = this.jTable1.getValueAt(this.jTable1.getSelectedRow(), 2).toString();
-            this.jLabel1.setText("Adicionar ao estoque de: " + nome + " (Atual: " + quantidadeAtual + ")");
+            this.jLabel1.setText("Remover do estoque de: " + nome + " (Atual: " + quantidadeAtual + ")");
         }
     }//GEN-LAST:event_jTable1MouseClicked
 

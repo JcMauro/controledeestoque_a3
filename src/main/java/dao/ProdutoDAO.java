@@ -261,7 +261,7 @@ public class ProdutoDAO {
     public ResultSet contarProdutosEstoqueMaximo() throws SQLException {
         String sql = "SELECT id as codigo, nome as produto, quantidade as estoque, max as estoque_max "
                 + "FROM tb_produto tp "
-                + "WHERE tp.quantidade >= tp.max "
+                + "WHERE tp.quantidade > tp.max "
                 + "GROUP BY tp.id";
 
         Connection conn = conexaoDAO.getConexao();
@@ -271,7 +271,7 @@ public class ProdutoDAO {
     public ResultSet contarProdutosEstoqueMinimo() throws SQLException {
         String sql = "SELECT id as codigo, nome as produto, quantidade as estoque, min as estoque_min "
                 + "FROM tb_produto tp "
-                + "WHERE tp.quantidade <= tp.min "
+                + "WHERE tp.quantidade < tp.min "
                 + "GROUP BY tp.id";
 
         Connection conn = conexaoDAO.getConexao();

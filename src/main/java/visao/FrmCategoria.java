@@ -242,7 +242,7 @@ public class FrmCategoria extends javax.swing.JFrame {
 
             try {
                 id = Integer.parseInt(JTextID.getText().trim());
-                if (id < 0) {
+                if (id <= 0) {
                     throw new Mensagem("ID deve ser maior que zero.");
 
                 }
