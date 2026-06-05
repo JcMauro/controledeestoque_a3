@@ -81,10 +81,13 @@ public class CategoriaDAO {
      * @return true se a remoção for bem-sucedida, false caso contrário.
      */
     public boolean removerCategoria(int id) {
-        try (Connection conn = conexaoDAO.getConexao();
-             Statement stmt = conn.createStatement()) {
+        String sql = "DELETE FROM tb_categoria WHERE id = ?";
 
-            stmt.executeUpdate("DELETE FROM tb_categoria WHERE id = " + id);
+        try (Connection conn = conexaoDAO.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
             return true;
         } catch (SQLException erro) {
             System.out.println("Erro: " + erro);

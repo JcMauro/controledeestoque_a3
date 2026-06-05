@@ -143,7 +143,7 @@ public class Produto {
     * a quantidade atual de itens disponíveis (`getQuantidade()`) pelo seu
     * preço unitário (`getPreco()`)
     */
-    public Object getValorTotal() {
-        return (int) (getQuantidade() * getPreco());
+    public double getValorTotal() {
+        return getQuantidade() * getPreco();
      }
 }

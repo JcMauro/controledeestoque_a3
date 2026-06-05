@@ -37,6 +37,6 @@ public class Login {
 
     @Override
     public String toString() {
-        return "ModeloLogin [usuario=" + usuario + ", senha=" + senha + "]";
+        return "ModeloLogin [usuario=" + usuario + ", senha=<oculta>]";
     }
 }

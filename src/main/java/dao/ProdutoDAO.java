@@ -92,11 +92,12 @@ public class ProdutoDAO {
      * @return true se removido com sucesso, false se houver erro
      */
     public boolean removerProduto(int id) {
-        String sql = "DELETE FROM tb_produto WHERE id = " + id;
+        String sql = "DELETE FROM tb_produto WHERE id = ?";
 
-        try (Connection conn = conexaoDAO.getConexao(); Statement stmt = conn.createStatement()) {
+        try (Connection conn = conexaoDAO.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.executeUpdate(sql);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
             return true;
         } catch (SQLException erro) {
             System.out.println("Erro: " + erro);
