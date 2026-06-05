@@ -33,7 +33,6 @@ public class ConexaoDAO {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Conexao estabelecida com sucesso!");
         } catch (ClassNotFoundException e) {
             System.out.println("Driver JDBC nao encontrado!");
             e.printStackTrace();

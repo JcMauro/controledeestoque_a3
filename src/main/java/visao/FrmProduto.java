@@ -593,9 +593,6 @@ public class FrmProduto extends javax.swing.JFrame {
                 }
             }
 
-            ProdutoDAO produtoDao = new ProdutoDAO();
-            System.out.println(produtoDao.getListaProdutos().toString());
-
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } catch (NumberFormatException e) {

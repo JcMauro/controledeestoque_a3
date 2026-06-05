@@ -323,7 +323,6 @@ public class FrmCategoria extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Categoria Alterada com Sucesso!");
             }
 
-            System.out.println(new CategoriaDAO().getLista().toString());
 
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -398,7 +397,6 @@ public class FrmCategoria extends javax.swing.JFrame {
             }
 
             CategoriaDAO dao = new CategoriaDAO();
-            System.out.println(dao.getLista().toString());
 
         } catch (Mensagem erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());

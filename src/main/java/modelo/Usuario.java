@@ -7,8 +7,8 @@ public class Usuario {
     private String email;
     private String senha;
 
-    public Usuario(String string, String string1) {
-        this(0, "", "", "");
+    public Usuario(String nome, String senha) {
+        this(0, nome, "", senha);
     }
 
     public Usuario(String nome, String email, String senha) {
