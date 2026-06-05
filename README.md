@@ -19,7 +19,7 @@ A aplicacao foi desenvolvida utilizando Java com Swing para a interface grafica,
 | --- | --- | --- |
 | Julio Cesar de Souza Mauro | [JcMauro](https://github.com/JcMauro) | 10724269838 |
 | Gustavo de Espindola Martins | [gustavodees](https://github.com/gustavodees) | 10724238393 |
-| Nycolle Vieira | [NycolleVieira](https://github.com/NycolleVieira) | A confirmar |
+| Nycolle Vieira | [NycolleVieira](https://github.com/NycolleVieira) |10723114148 |
 | Layse Gabrielly Silva Lima | [LAYSEGABI](https://github.com/LAYSEGABI) | A confirmar |
 
 ## Requisitos Funcionais (RF)
