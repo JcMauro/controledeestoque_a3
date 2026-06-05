@@ -1,108 +1,120 @@
-
 # Controle de estoque - A3
 
+Este sistema foi desenvolvido como parte da disciplina de Programacao de Solucoes Computacionais (PSC) da Universidade do Sul de Santa Catarina (UNISUL). O objetivo do projeto e criar uma aplicacao para gerenciamento de controle de estoque, com interfaces graficas, integracao com banco de dados e uso do padrao DAO.
 
-Este sistema foi desenvolvido como parte da disciplina de Programação de Soluções Computacionais (PSC) da Universidade do Sul de Santa Catarina (UNISUL). O objetivo do projeto é criar uma aplicação colaborativa para o gerenciamento de controle de estoque, com interfaces gráficas e integração com banco de dados, além do uso de modelagem de software para garantir uma estrutura sólida, facilitando a manutenção, escalabilidade e eficiência no desenvolvimento da aplicação
+## Descricao do Projeto
 
+Este projeto tem como objetivo o desenvolvimento de um sistema de controle de estoque, permitindo ao usuario realizar uma gestao mais eficiente dos produtos armazenados. O sistema oferece funcionalidades como cadastro e atualizacao de produtos, cadastro de categorias, movimentacao de estoque e geracao de relatorios.
 
+A aplicacao foi desenvolvida utilizando Java com Swing para a interface grafica, MySQL como sistema de gerenciamento de banco de dados e JDBC para comunicacao entre a aplicacao e o banco.
 
+## Documentacao
 
-## Descrição do projeto
-
-Este projeto tem como objetivo o desenvolvimento de um sistema de controle de estoque, permitindo ao usuário realizar uma gestão mais eficiente dos produtos armazenados. O sistema oferece funcionalidades como cadastro e atualização de produtos, além da geração de relatórios, como lista de preços, balanço físico/financeiro e controle de itens que estão abaixo ou acima dos níveis ideais de estoque.
-A aplicação foi desenvolvida utilizando a linguagem Java com Swing para a interface gráfica, MySQL como sistema de gerenciamento de banco de dados e o padrão DAO para a abstração da camada de dados, promovendo uma estrutura organizada e de fácil manutenção.
-
-
-
-
-## Documentação
-
-- [Documentação para a criação do controle de estoque](https://mediacdns3.ulife.com.br/PAT/Upload/5688953/A3_roteiro_20250529201959.pdf)
-
-
-
+- [Documentacao para a criacao do controle de estoque](https://mediacdns3.ulife.com.br/PAT/Upload/5688953/A3_roteiro_20250529201959.pdf)
+- [Melhorias de qualidade aplicadas](docs/melhorias-qualidade.md)
 
 ## Alunos
 
-| Nome Completo               | Github                                                | RA                  |
-| ----------------- | ---------------------------------------------------------- | --------------------------------- |
-| Arthur Graciliano  Oliveira de Souza      | Arthurc0mH| 1072518568     |
-| Gustavo de Espindola Martins       | gustavodees| 10724238393    |
-| Igor Ragen Valau Martins       | IgorRagen | 1072513366  |
-| Júlio Cesar de Souza Mauro       | JcMauro | 10724269838     |
-| Luiz Augusto Pereira       | Luiz-4ugusto | 10725115943     |
+| Nome Completo | Github | RA |
+| --- | --- | --- |
+| Julio Cesar de Souza Mauro | [JcMauro](https://github.com/JcMauro) | 10724269838 |
+| Gustavo de Espindola Martins | [gustavodees](https://github.com/gustavodees) | 10724238393 |
+| Nycolle Vieira | A confirmar | A confirmar |
+| Layse Gabrielly Silva Lima | A confirmar | A confirmar |
 
 ## Requisitos Funcionais (RF)
-RF01. O sistema deve permitir que o usuário cadastre categorias de produtos, informando: id, nome da categoria, embalagem e tamanho.
 
-RF02. O sistema deve permitir que o usuário edite e exclua categorias previamente cadastradas.
+RF01. O sistema deve permitir que o usuario cadastre categorias de produtos, informando: id, nome da categoria, embalagem e tamanho.
 
-RF03. O sistema deve permitir que o usuário cadastre novos produtos, informando: id, nome do produto, quantidade mínima e máxima permitida em estoque, quantidade atual em estoque e categoria.
+RF02. O sistema deve permitir que o usuario edite e exclua categorias previamente cadastradas.
 
-RF04. O sistema deve permitir que o usuário edite e exclua produtos previamente cadastrados.
+RF03. O sistema deve permitir que o usuario cadastre novos produtos, informando: id, nome do produto, preco, quantidade minima e maxima permitida em estoque, quantidade atual em estoque, unidade e categoria.
 
-RF05. O sistema deve permitir que o usuário adicione e remova produtos ao estoque atual.
+RF04. O sistema deve permitir que o usuario edite e exclua produtos previamente cadastrados.
 
-RF06. O sistema deve permitir que o usuário gere o seguinte relatório para lista de preços dos produtos
+RF05. O sistema deve permitir que o usuario adicione e remova produtos ao estoque atual.
 
-RF07. O sistema deve permitir que o usuário gere o seguinte relatório para o balanço fiscal
+RF06. O sistema deve permitir que o usuario gere relatorio de lista de precos dos produtos.
 
-RF08. O sistema deve permitir que o usuário gere o seguinte relatório para produtos abaixo da quantidade mínima de estoque
+RF07. O sistema deve permitir que o usuario gere relatorio de balanco fisico/financeiro.
 
-RF09. O sistema deve permitir que o usuário gere o seguinte relatório para produtos acima da quantidade máxima de estoque
+RF08. O sistema deve permitir que o usuario gere relatorio de produtos abaixo da quantidade minima de estoque.
 
-RF10. O sistema deve permitir que o usuário gere o seguinte relatório para quantidade de produtos agrupados por categoria
+RF09. O sistema deve permitir que o usuario gere relatorio de produtos acima da quantidade maxima de estoque.
 
-RF11. O sistema deve disponibilizar uma janela específica que exiba todos os produtos cuja quantidade em estoque esteja abaixo da quantidade mínima permitida.
+RF10. O sistema deve permitir que o usuario gere relatorio de quantidade de produtos agrupados por categoria.
 
-RF12. O sistema deve disponibilizar uma janela específica que exiba todos os produtos cuja quantidade em estoque esteja acima da quantidade máxima permitida.
+RF11. O sistema deve disponibilizar uma janela especifica que exiba todos os produtos cuja quantidade em estoque esteja abaixo da quantidade minima permitida.
 
-## Requisitos Não Funcionais (RNF)
+RF12. O sistema deve disponibilizar uma janela especifica que exiba todos os produtos cuja quantidade em estoque esteja acima da quantidade maxima permitida.
 
-RNF01. O sistema deve estar disponível para uso 24 horas por dia, 7 dias por semana (24/7), garantindo funcionamento contínuo.
+## Requisitos Nao Funcionais (RNF)
 
-RNF02. O sistema deve possuir uma interface intuitiva e de fácil utilização, facilitando o uso por usuários com diferentes níveis de experiência.
+RNF01. O sistema deve estar disponivel para uso quando o ambiente local estiver configurado corretamente.
 
-RNF03. O sistema deve responder aos comandos de forma rápida e eficaz, garantindo fluidez na navegação e uso das funcionalidades.
+RNF02. O sistema deve possuir uma interface intuitiva e de facil utilizacao.
 
-RNF04. O sistema deve garantir a integridade dos dados no banco, evitando perda ou corrupção de informações durante operações de leitura, escrita ou atualização.
+RNF03. O sistema deve responder aos comandos de forma rapida e eficaz.
 
-RNF05. O sistema deve validar os dados inseridos pelo usuário e, caso algum valor inválido seja informado, exibir uma mensagem de erro clara explicando o motivo do erro
+RNF04. O sistema deve garantir a integridade dos dados no banco durante operacoes de leitura, escrita ou atualizacao.
+
+RNF05. O sistema deve validar os dados inseridos pelo usuario e exibir uma mensagem de erro clara quando algum valor invalido for informado.
 
 ## Ferramentas
 
-| Ferramentas          | Finalidade                                     |
-| ------------------------------ | ---------------------------------------------- |
-| **JDK 17**                      | Ambiente de desenvolvimento (Java 17)         |
-| **MySQL Server 8.0**            | Banco de dados relacional                     |
-| **JDBC (MySQL Connector/J 8.3.0)**| Comunicação entre Java e MySQL                |
-| **Apache NetBeans 26**         | Ambiente de desenvolvimento (IDE)            |
-
+| Ferramenta | Finalidade |
+| --- | --- |
+| JDK 17 | Ambiente de desenvolvimento Java |
+| MySQL Server 8.0 | Banco de dados relacional |
+| JDBC (MySQL Connector/J 8.3.0) | Comunicacao entre Java e MySQL |
+| Apache NetBeans | Ambiente de desenvolvimento |
+| Maven | Gerenciamento e build do projeto |
 
 ## Banco de Dados
 
-A pasta `database` contém os scripts de conexão e criação das tabelas utilizadas neste projeto.  Execute o script em seu servidor SQL local para criar a estrutura do banco de dados necessária ao funcionamento da aplicação.
-nome da base: db_controledeestoque
-usuário e senha do bd:
+A pasta `database` contem o script de criacao das tabelas utilizadas neste projeto. Execute o script em um servidor MySQL local para criar a estrutura necessaria ao funcionamento da aplicacao.
 
+Nome da base:
 
-            String user = "root";
-            String password = "Unisul@1520";
-[Arquivo do Banco de Dados](https://github.com/Luiz-4ugusto/Controle_de_estoque_A3/tree/main/database)
+```text
+db_controledeestoque
+```
 
-## Referências
+Dados padrao de conexao:
 
- - [How to Create a Perfect README for Your GitHub Project](https://medium.com/@sumudithalanz/the-art-of-crafting-an-effective-readme-for-your-github-project-cf425a8b1580)
-  - [readme.so](https://readme.so/pt/editor)
- - [Implementando documentação através do NetBeans](https://www.devmedia.com.br/javadoc-implementando-documentacao-atraves-do-netbeans/2495)
-  - [Requisitos funcionais e não funcionais](https://www.mestresdaweb.com.br/tecnologias/requisitos-funcionais-e-nao-funcionais-o-que-sao)
-  - [How to link github to Netbeans projects](https://www.youtube.com/watch?v=UOIPS-ewFHg)
-  - [Arquivo base disponibilizado pelo professor Osmar, da disciplina de Programação de Soluções Computacionais, para a criação de interface gráfica.](https://mediacdns3.ulife.com.br/PAT/Upload/2985299/11_Interfaces_graficas_20250519185608.pdf)
-  - [Arquivo base disponibilizado pelo professor Osmar, da disciplina de Programação de Soluções Computacionais, para a criação de banco de dados.](https://mediacdns3.ulife.com.br/PAT/Upload/2985299/12_BD_mysql_workbench_20250512213257.pdf)
-  - [Arquivo base disponibilizado pelo professor Osmar, da disciplina de Programação de Soluções Computacionais, para a criação e integração de banco de dados.](https://mediacdns3.ulife.com.br/PAT/Upload/2985299/13_BD_DAO_sem_control_20250512213305.pdf)
+```java
+String user = "root";
+String password = "Unisul@1520";
+```
 
-  
+Tambem e possivel configurar os dados de conexao por variaveis de ambiente:
 
+```text
+DB_URL
+DB_USER
+DB_PASSWORD
+```
 
+[Arquivo do Banco de Dados](database/db_controledeestoque.sql)
 
+## Como Executar
 
+Com Maven instalado, execute:
+
+```bash
+mvn clean test
+```
+
+Para executar a aplicacao pela IDE, utilize a classe principal:
+
+```text
+principal.Principal
+```
+
+## Referencias
+
+- [How to Create a Perfect README for Your GitHub Project](https://medium.com/@sumudithalanz/the-art-of-crafting-an-effective-readme-for-your-github-project-cf425a8b1580)
+- [readme.so](https://readme.so/pt/editor)
+- [Implementando documentacao atraves do NetBeans](https://www.devmedia.com.br/javadoc-implementando-documentacao-atraves-do-netbeans/2495)
+- [Requisitos funcionais e nao funcionais](https://www.mestresdaweb.com.br/tecnologias/requisitos-funcionais-e-nao-funcionais-o-que-sao)
+- [How to link github to Netbeans projects](https://www.youtube.com/watch?v=UOIPS-ewFHg)
