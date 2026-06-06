@@ -64,9 +64,8 @@ public class UsuarioDAO {
                 lista.add(objeto);
             }
         } catch (SQLException ex) {
-            // Em caso de erro SQL, imprime uma mensagem de erro e o stack trace para depuração.
+            // Em caso de erro SQL, imprime uma mensagem simples de erro.
             System.err.println("Erro ao obter lista de usuários: " + ex.getMessage());
-            ex.printStackTrace();
         }
         // Retorna a lista de usuários.
         return lista;
@@ -102,9 +101,8 @@ public class UsuarioDAO {
             // Retorna verdadeiro se pelo menos uma linha foi inserida.
             return rowsAffected > 0;
         } catch (SQLException e) {
-            // Em caso de erro SQL durante a inserção, imprime uma mensagem de erro e o stack trace.
+            // Em caso de erro SQL durante a inserção, imprime uma mensagem simples de erro.
             System.err.println("Erro ao inserir usuário: " + e.getMessage());
-            e.printStackTrace();
             // Retorna falso indicando que a inserção falhou.
             return false;
         }
@@ -138,9 +136,8 @@ public class UsuarioDAO {
                 }
             }
         } catch (SQLException e) {
-            // Em caso de erro SQL, imprime uma mensagem de erro e o stack trace.
+            // Em caso de erro SQL, imprime uma mensagem simples de erro.
             System.err.println("Erro ao buscar usuário por usuario: " + e.getMessage());
-            e.printStackTrace();
         }
         // Retorna o usuário encontrado ou null.
         return usuario;
@@ -174,9 +171,8 @@ public class UsuarioDAO {
                 }
             }
         } catch (SQLException e) {
-            // Em caso de erro SQL, imprime uma mensagem de erro e o stack trace.
+            // Em caso de erro SQL, imprime uma mensagem simples de erro.
             System.err.println("Erro ao buscar usuário por email: " + e.getMessage());
-            e.printStackTrace();
         }
         // Retorna o usuário encontrado ou null.
         return usuario;
@@ -202,9 +198,8 @@ public class UsuarioDAO {
                 usuarios.add(rs.getString("usuario")); // Adiciona o usuario à lista.
             }
         } catch (SQLException e) {
-            // Em caso de erro SQL, imprime uma mensagem de erro e o stack trace.
+            // Em caso de erro SQL, imprime uma mensagem simples de erro.
             System.err.println("Erro ao obter todos os usuarios: " + e.getMessage());
-            e.printStackTrace();
         }
         // Retorna a lista de usuarios.
         return usuarios;

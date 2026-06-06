@@ -195,7 +195,6 @@ public class FrmUsuario extends javax.swing.JFrame {
         } catch (Exception e) {
             // Captura e exibe outros erros inesperados durante o processo de cadastro
             JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado: " + e.getMessage());
-            e.printStackTrace(); // Imprime o stack trace para depuração
         }
     }//GEN-LAST:event_JButtonCadastrarUsuarioActionPerformed
 

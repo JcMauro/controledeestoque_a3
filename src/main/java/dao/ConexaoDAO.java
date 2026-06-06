@@ -35,10 +35,8 @@ public class ConexaoDAO {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException e) {
             System.out.println("Driver JDBC nao encontrado!");
-            e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println("Erro ao conectar ao banco de dados!");
-            e.printStackTrace();
+            System.out.println("Erro ao conectar ao banco de dados: " + e.getMessage());
         }
         return connection;
     }

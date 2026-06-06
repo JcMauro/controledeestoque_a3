@@ -39,7 +39,6 @@ public class LoginDAO {
             }
         } catch (SQLException e) {
             System.err.println("Erro ao validar login: " + e.getMessage());
-            e.printStackTrace();
         }
         return loginValido;
     }
@@ -70,7 +69,6 @@ public class LoginDAO {
             }
         } catch (SQLException e) {
             System.err.println("Erro ao buscar usuário por usuario para login: " + e.getMessage());
-            e.printStackTrace();
         }
         return usuario;
     }
