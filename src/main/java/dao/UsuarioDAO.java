@@ -84,7 +84,7 @@ public class UsuarioDAO {
     public boolean inserirUsuario(Usuario usuario) {
         // Define a query SQL para inserir um novo registro.
         // O uso de '?' (placeholders) é uma prática segura para evitar SQL Injection.
-        String sql = "INSERT INTO tb_usuarios (usuario, email, senha) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tb_usuarios (usuario, username, email, senha) VALUES (?, ?, ?, ?)";
 
         // O 'try-with-resources' garante que Connection e PreparedStatement sejam fechados automaticamente.
         try (Connection con = conexaoDAO.getConexao(); // Obtém a conexão com o banco de dados.
@@ -92,8 +92,9 @@ public class UsuarioDAO {
 
             // Define os valores para os placeholders da query.
             pst.setString(1, usuario.getNome());  // Define o valor para o primeiro '?' (usuario).
-            pst.setString(2, usuario.getEmail()); // Define o valor para o segundo '?' (email).
-            pst.setString(3, usuario.getSenha()); // Define o valor para o terceiro '?' (senha).
+            pst.setString(2, usuario.getNome());  // Mantem username preenchido com o mesmo valor de usuario.
+            pst.setString(3, usuario.getEmail()); // Define o valor para o terceiro '?' (email).
+            pst.setString(4, usuario.getSenha()); // Define o valor para o quarto '?' (senha).
 
             // Executa a atualização no banco de dados.
             // O retorno é o número de linhas afetadas.

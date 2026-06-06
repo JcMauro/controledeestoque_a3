@@ -25,10 +25,12 @@
                 <version>0.8.12</version>
                 <configuration>
                     <excludes>
-                        <exclude>java/*</exclude>
-                        <exclude>javax/*</exclude>
-                        <exclude>jdk/*</exclude>
-                        <exclude>sun/*</exclude>
+                        <exclude>java/**</exclude>
+                        <exclude>javax/**</exclude>
+                        <exclude>jdk/**</exclude>
+                        <exclude>sun/**</exclude>
+                        <exclude>com/sun/**</exclude>
+                        <exclude>org/jcp/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
