@@ -9,6 +9,8 @@ import modelo.Produto;
 import modelo.Categoria;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
 
 public class ProdutoDAO {
 
@@ -249,33 +251,47 @@ public class ProdutoDAO {
         return produto;
     }
     
-  public ResultSet contarProdutosPorCategoria() throws SQLException {
-        String sql = "SELECT c.nome AS categoria, COUNT(p.id) AS quantidade "
+    public ResultSet contarProdutosPorCategoria() throws SQLException {
+        String sql = "SELECT categoria, quantidade FROM ("
+                + "SELECT c.nome AS categoria, COUNT(p.id) AS quantidade "
                 + "FROM tb_produto p JOIN tb_categoria c ON p.categoria_id = c.id "
-                + "GROUP BY c.id, c.nome";
+                + "GROUP BY c.id, c.nome"
+                + ") relatorio";
 
-        Connection conn = conexaoDAO.getConexao();
-        return conn.prepareStatement(sql).executeQuery();
+        return executarConsultaRelatorio(sql);
     }
   
     public ResultSet contarProdutosEstoqueMaximo() throws SQLException {
-        String sql = "SELECT id as codigo, nome as produto, quantidade as estoque, max as estoque_max "
+        String sql = "SELECT codigo, produto, estoque, estoque_max FROM ("
+                + "SELECT id as codigo, nome as produto, quantidade as estoque, max as estoque_max "
                 + "FROM tb_produto tp "
                 + "WHERE tp.quantidade > tp.max "
-                + "GROUP BY tp.id";
+                + "GROUP BY tp.id"
+                + ") relatorio";
 
-        Connection conn = conexaoDAO.getConexao();
-        return conn.prepareStatement(sql).executeQuery();
+        return executarConsultaRelatorio(sql);
     }
     
     public ResultSet contarProdutosEstoqueMinimo() throws SQLException {
-        String sql = "SELECT id as codigo, nome as produto, quantidade as estoque, min as estoque_min "
+        String sql = "SELECT codigo, produto, estoque, estoque_min FROM ("
+                + "SELECT id as codigo, nome as produto, quantidade as estoque, min as estoque_min "
                 + "FROM tb_produto tp "
                 + "WHERE tp.quantidade < tp.min "
-                + "GROUP BY tp.id";
+                + "GROUP BY tp.id"
+                + ") relatorio";
 
-        Connection conn = conexaoDAO.getConexao();
-        return conn.prepareStatement(sql).executeQuery();
+        return executarConsultaRelatorio(sql);
+    }
+
+    private ResultSet executarConsultaRelatorio(String sql) throws SQLException {
+        try (Connection conn = conexaoDAO.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            CachedRowSet resultado = RowSetProvider.newFactory().createCachedRowSet();
+            resultado.populate(rs);
+            return resultado;
+        }
     }
     
 }

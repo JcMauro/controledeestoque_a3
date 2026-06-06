@@ -408,9 +408,6 @@ public class FrmProduto extends javax.swing.JFrame {
             this.objetoProduto.setMax(max);
             this.objetoProduto.setUnidade(unidade.trim());
             this.objetoProduto.setCategoria(categoriaSelecionada);
-            if (categoriaSelecionada == null) {
-                throw new Mensagem("Categoria não encontrada!");
-            }
             ProdutoDAO produtoDao = new ProdutoDAO();
             if (produtoDao.inserirProduto(this.objetoProduto)) {
                 jTextId.setText("");
