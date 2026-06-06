@@ -58,6 +58,7 @@
         <sonar.organization>jcmauro</sonar.organization>
         <sonar.projectKey>JcMauro_controledeestoque_a3</sonar.projectKey>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.exclusions>src/main/java/visao/**</sonar.exclusions>
         <sonar.coverage.exclusions>src/main/java/visao/**</sonar.coverage.exclusions>
         <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
