@@ -36,7 +36,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         JTextEmail = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Controle de Estoque - Cadastro");
 
         jLabel3.setText("CADASTRO DE USUÁRIOS");
@@ -154,7 +154,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                 throw new Mensagem("O nome de usuário deve conter ao menos 2 caracteres.");
             }
             if (email.length() < 2) {
-                throw new Mensagem("O e-mail deve conter ao menos 2 caracteres..");
+                throw new Mensagem("O e-mail deve conter ao menos 2 caracteres.");
             }
             if (email.isEmpty()) {
                 throw new Mensagem("O e-mail não pode estar vazio.");

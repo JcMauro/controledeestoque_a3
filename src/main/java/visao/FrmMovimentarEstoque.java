@@ -45,7 +45,7 @@ public class FrmMovimentarEstoque extends JFrame {
 
         tabelaProdutos.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"ID", "Nome", "Estoque atual", "Estoque minimo", "Estoque maximo"}
+                new String[]{"ID", "Nome", "Estoque atual", "Estoque mínimo", "Estoque máximo"}
         ));
 
         tabelaProdutos.addMouseListener(new MouseAdapter() {
@@ -146,12 +146,12 @@ public class FrmMovimentarEstoque extends JFrame {
             if (adicionar) {
                 novoEstoque = estoqueAtual + quantidadeInformada;
                 if (novoEstoque > estoqueMaximo) {
-                    throw new Exception("Estoque nao pode ultrapassar o limite maximo (" + estoqueMaximo + ").");
+                    throw new Exception("Estoque não pode ultrapassar o limite máximo (" + estoqueMaximo + ").");
                 }
             } else {
                 novoEstoque = estoqueAtual - quantidadeInformada;
                 if (novoEstoque < estoqueMinimo) {
-                    throw new Exception("Estoque nao pode ser menor que o minimo permitido (" + estoqueMinimo + ").");
+                    throw new Exception("Estoque não pode ser menor que o mínimo permitido (" + estoqueMinimo + ").");
                 }
             }
 
@@ -164,7 +164,7 @@ public class FrmMovimentarEstoque extends JFrame {
             carregaTabela();
             selecionarProduto();
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Digite um valor numerico valido.");
+            JOptionPane.showMessageDialog(this, "Digite um valor numérico válido.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

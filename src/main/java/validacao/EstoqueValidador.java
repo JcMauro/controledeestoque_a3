@@ -12,7 +12,7 @@ public class EstoqueValidador {
 
         int novoEstoque = estoqueAtual + quantidade;
         if (novoEstoque > estoqueMaximo) {
-            throw new Mensagem("Estoque nao pode ultrapassar o limite maximo.");
+            throw new Mensagem("Estoque não pode ultrapassar o limite máximo.");
         }
         return novoEstoque;
     }
@@ -22,7 +22,7 @@ public class EstoqueValidador {
 
         int novoEstoque = estoqueAtual - quantidade;
         if (novoEstoque < estoqueMinimo) {
-            throw new Mensagem("Estoque nao pode ser menor que o minimo permitido.");
+            throw new Mensagem("Estoque não pode ser menor que o mínimo permitido.");
         }
         return novoEstoque;
     }

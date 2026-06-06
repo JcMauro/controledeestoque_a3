@@ -104,7 +104,7 @@ public class FrmProduto extends javax.swing.JFrame {
         JTableProdutos = new javax.swing.JTable();
         jButtonExcluir1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Produto");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -125,7 +125,7 @@ public class FrmProduto extends javax.swing.JFrame {
 
         jLabel2.setText("Inserir preço do Produto");
 
-        jLabel4.setText("Inserir quantidade minima do Produto em estoque");
+        jLabel4.setText("Inserir quantidade mínima do Produto em estoque");
 
         jLabel5.setText("Inserir unidade de medida do Produto ");
 
@@ -133,7 +133,7 @@ public class FrmProduto extends javax.swing.JFrame {
 
         jLabel7.setText("Inserir quantidade do Produto em estoque");
 
-        jLabel8.setText("Inserir quantidade maxima do Produto em estoque");
+        jLabel8.setText("Inserir quantidade máxima do Produto em estoque");
 
         jLabel9.setText("Inserir Categoria do Produto");
 
@@ -342,10 +342,10 @@ public class FrmProduto extends javax.swing.JFrame {
             try {
                 preco = Double.parseDouble(jTextPreco.getText().trim());
                 if (preco <= 0) {
-                    throw new Mensagem("Valor invalido, o valor não pode ser igual a 0");
+                    throw new Mensagem("Valor inválido, o valor não pode ser igual a 0");
                 }
             } catch (NumberFormatException e) {
-                throw new Mensagem("Preço invalido");
+                throw new Mensagem("Preço inválido");
 
             }
             //quantidade,min e max, aqui vai fazer teste com essas variaveis, nenhuma delas pode ser zero, e o valor minimo não pode ser superior ao valor maximo
@@ -364,14 +364,17 @@ public class FrmProduto extends javax.swing.JFrame {
                     throw new Mensagem("Quantidades não podem ser nulas");
                 }
                 if (min > max) {
-                    throw new Mensagem("Quantidades Minima não pode ser superior a quantidade maxima");
+                    throw new Mensagem("Quantidade mínima não pode ser superior à quantidade máxima");
                 }
             } catch (NumberFormatException e) {
-                throw new Mensagem("Campos de quantidade invalidos");
+                throw new Mensagem("Campos de quantidade inválidos");
 
             }
             // unidade, já que eu coloquei valores fixos a strign unidade vai pegar um daqueles valores
 
+            if (jComboUnidade.getSelectedItem() == null) {
+                throw new Mensagem("Selecione uma unidade.");
+            }
             String unidade = jComboUnidade.getSelectedItem().toString();
             //Categoria
             if (jComboCategoria.getSelectedItem() == null) {
@@ -443,7 +446,7 @@ public class FrmProduto extends javax.swing.JFrame {
          */
         try {
             if (this.JTableProdutos.getSelectedRow() == -1) {
-                throw new Mensagem("selecione um produto para editar");
+                throw new Mensagem("Selecione um produto para editar");
             }
             //Pegar valor que quero editar
 
@@ -471,6 +474,9 @@ public class FrmProduto extends javax.swing.JFrame {
                 throw new Mensagem("Quantidade mínima não pode ser maior que a máxima");
             }
 
+            if (jComboUnidade.getSelectedItem() == null) {
+                throw new Mensagem("Selecione uma unidade.");
+            }
             String unidade = jComboUnidade.getSelectedItem().toString();
 
             if (jComboCategoria.getSelectedItem() == null) {

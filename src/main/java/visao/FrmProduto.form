@@ -172,7 +172,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Inserir quantidade minima do Produto em estoque"/>
+        <Property name="text" type="java.lang.String" value="Inserir quantidade mínima do Produto em estoque"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextQuantidade_min">
@@ -198,7 +198,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Inserir quantidade maxima do Produto em estoque"/>
+        <Property name="text" type="java.lang.String" value="Inserir quantidade máxima do Produto em estoque"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextQuantidade_max">

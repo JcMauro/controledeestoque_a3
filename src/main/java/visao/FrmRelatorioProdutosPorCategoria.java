@@ -27,8 +27,8 @@ public class FrmRelatorioProdutosPorCategoria extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         Jbutton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Relatorio de produtos agrupados por categoria");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Relatório de produtos agrupados por categoria");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
