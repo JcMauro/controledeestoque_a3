@@ -9,6 +9,7 @@ import modelo.Produto;
 import modelo.Categoria;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProdutoDAO {
 
@@ -249,7 +250,7 @@ public class ProdutoDAO {
         return produto;
     }
     
-    public ArrayList<Object[]> contarProdutosPorCategoria() throws SQLException {
+    public List<Object[]> contarProdutosPorCategoria() throws SQLException {
         String sql = "SELECT categoria, quantidade FROM ("
                 + "SELECT c.nome AS categoria, COUNT(p.id) AS quantidade "
                 + "FROM tb_produto p JOIN tb_categoria c ON p.categoria_id = c.id "
@@ -271,7 +272,7 @@ public class ProdutoDAO {
         return lista;
     }
   
-    public ArrayList<Object[]> contarProdutosEstoqueMaximo() throws SQLException {
+    public List<Object[]> contarProdutosEstoqueMaximo() throws SQLException {
         String sql = "SELECT codigo, produto, estoque, estoque_max FROM ("
                 + "SELECT id as codigo, nome as produto, quantidade as estoque, max as estoque_max "
                 + "FROM tb_produto tp "
@@ -296,7 +297,7 @@ public class ProdutoDAO {
         return lista;
     }
     
-    public ArrayList<Object[]> contarProdutosEstoqueMinimo() throws SQLException {
+    public List<Object[]> contarProdutosEstoqueMinimo() throws SQLException {
         String sql = "SELECT codigo, produto, estoque, estoque_min FROM ("
                 + "SELECT id as codigo, nome as produto, quantidade as estoque, min as estoque_min "
                 + "FROM tb_produto tp "
