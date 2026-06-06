@@ -49,3 +49,11 @@ jobs:
           DB_USER: root
           DB_PASSWORD: Unisul@1520
         run: mvn clean test
+
+      - name: Executar analise SonarCloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          DB_URL: jdbc:mysql://127.0.0.1:3306/db_controledeestoque
+          DB_USER: root
+          DB_PASSWORD: Unisul@1520
+        run: mvn sonar:sonar
