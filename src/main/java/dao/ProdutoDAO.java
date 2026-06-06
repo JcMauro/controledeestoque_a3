@@ -9,8 +9,6 @@ import modelo.Produto;
 import modelo.Categoria;
 import java.sql.*;
 import java.util.ArrayList;
-import javax.sql.rowset.CachedRowSet;
-import javax.sql.rowset.RowSetProvider;
 
 public class ProdutoDAO {
 
@@ -251,17 +249,29 @@ public class ProdutoDAO {
         return produto;
     }
     
-    public ResultSet contarProdutosPorCategoria() throws SQLException {
+    public ArrayList<Object[]> contarProdutosPorCategoria() throws SQLException {
         String sql = "SELECT categoria, quantidade FROM ("
                 + "SELECT c.nome AS categoria, COUNT(p.id) AS quantidade "
                 + "FROM tb_produto p JOIN tb_categoria c ON p.categoria_id = c.id "
                 + "GROUP BY c.id, c.nome"
                 + ") relatorio";
 
-        return executarConsultaRelatorio(sql);
+        ArrayList<Object[]> lista = new ArrayList<>();
+        try (Connection conn = conexaoDAO.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(new Object[]{
+                    rs.getString("categoria"),
+                    rs.getInt("quantidade")
+                });
+            }
+        }
+        return lista;
     }
   
-    public ResultSet contarProdutosEstoqueMaximo() throws SQLException {
+    public ArrayList<Object[]> contarProdutosEstoqueMaximo() throws SQLException {
         String sql = "SELECT codigo, produto, estoque, estoque_max FROM ("
                 + "SELECT id as codigo, nome as produto, quantidade as estoque, max as estoque_max "
                 + "FROM tb_produto tp "
@@ -269,10 +279,24 @@ public class ProdutoDAO {
                 + "GROUP BY tp.id"
                 + ") relatorio";
 
-        return executarConsultaRelatorio(sql);
+        ArrayList<Object[]> lista = new ArrayList<>();
+        try (Connection conn = conexaoDAO.getConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(new Object[]{
+                    rs.getInt("codigo"),
+                    rs.getString("produto"),
+                    rs.getInt("estoque"),
+                    rs.getInt("estoque_max")
+                });
+            }
+        }
+        return lista;
     }
     
-    public ResultSet contarProdutosEstoqueMinimo() throws SQLException {
+    public ArrayList<Object[]> contarProdutosEstoqueMinimo() throws SQLException {
         String sql = "SELECT codigo, produto, estoque, estoque_min FROM ("
                 + "SELECT id as codigo, nome as produto, quantidade as estoque, min as estoque_min "
                 + "FROM tb_produto tp "
@@ -280,18 +304,21 @@ public class ProdutoDAO {
                 + "GROUP BY tp.id"
                 + ") relatorio";
 
-        return executarConsultaRelatorio(sql);
-    }
-
-    private ResultSet executarConsultaRelatorio(String sql) throws SQLException {
+        ArrayList<Object[]> lista = new ArrayList<>();
         try (Connection conn = conexaoDAO.getConexao();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
-            CachedRowSet resultado = RowSetProvider.newFactory().createCachedRowSet();
-            resultado.populate(rs);
-            return resultado;
+            while (rs.next()) {
+                lista.add(new Object[]{
+                    rs.getInt("codigo"),
+                    rs.getString("produto"),
+                    rs.getInt("estoque"),
+                    rs.getInt("estoque_min")
+                });
+            }
         }
+        return lista;
     }
     
 }

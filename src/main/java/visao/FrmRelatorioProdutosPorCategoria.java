@@ -1,7 +1,6 @@
 package visao;
 
 import dao.ProdutoDAO;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
@@ -115,14 +114,8 @@ public class FrmRelatorioProdutosPorCategoria extends javax.swing.JFrame {
 
         try {
             // Executa a consulta de contagem de produtos por categoria
-            ResultSet rs = dao.contarProdutosPorCategoria();
-
-            // Preenche a tabela com os resultados obtidos
-            while (rs.next()) {
-                modelo.addRow(new Object[]{
-                    rs.getString("categoria"),
-                    rs.getInt("quantidade")
-                });
+            for (Object[] linha : dao.contarProdutosPorCategoria()) {
+                modelo.addRow(linha);
             }
         } catch (SQLException ex) {
             // Exibe erro no console caso a consulta falhe

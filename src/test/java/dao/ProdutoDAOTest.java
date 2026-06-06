@@ -2,7 +2,6 @@ package dao;
 
 import modelo.Categoria;
 import modelo.Produto;
-import java.sql.ResultSet;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,16 +116,14 @@ class ProdutoDAOTest {
 
         assertTrue(produtoDAO.inserirProduto(produto));
 
-        try (ResultSet resultado = produtoDAO.contarProdutosPorCategoria()) {
-            boolean encontrou = false;
-            while (resultado.next()) {
-                if ("Categoria Integracao".equals(resultado.getString("categoria"))
-                        && resultado.getInt("quantidade") >= 1) {
-                    encontrou = true;
-                }
+        boolean encontrou = false;
+        for (Object[] linha : produtoDAO.contarProdutosPorCategoria()) {
+            if ("Categoria Integracao".equals(linha[0])
+                    && (Integer) linha[1] >= 1) {
+                encontrou = true;
             }
-            assertTrue(encontrou);
         }
+        assertTrue(encontrou);
     }
 
     @Test
@@ -136,16 +133,14 @@ class ProdutoDAOTest {
 
         assertTrue(produtoDAO.inserirProduto(produto));
 
-        try (ResultSet resultado = produtoDAO.contarProdutosEstoqueMinimo()) {
-            boolean encontrou = false;
-            while (resultado.next()) {
-                if (PRODUTO_BAIXO_ID == resultado.getInt("codigo")
-                        && PRODUTO_BAIXO_NOME.equals(resultado.getString("produto"))) {
-                    encontrou = true;
-                }
+        boolean encontrou = false;
+        for (Object[] linha : produtoDAO.contarProdutosEstoqueMinimo()) {
+            if (PRODUTO_BAIXO_ID == (Integer) linha[0]
+                    && PRODUTO_BAIXO_NOME.equals(linha[1])) {
+                encontrou = true;
             }
-            assertTrue(encontrou);
         }
+        assertTrue(encontrou);
     }
 
     @Test
@@ -155,15 +150,13 @@ class ProdutoDAOTest {
 
         assertTrue(produtoDAO.inserirProduto(produto));
 
-        try (ResultSet resultado = produtoDAO.contarProdutosEstoqueMaximo()) {
-            boolean encontrou = false;
-            while (resultado.next()) {
-                if (PRODUTO_ALTO_ID == resultado.getInt("codigo")
-                        && PRODUTO_ALTO_NOME.equals(resultado.getString("produto"))) {
-                    encontrou = true;
-                }
+        boolean encontrou = false;
+        for (Object[] linha : produtoDAO.contarProdutosEstoqueMaximo()) {
+            if (PRODUTO_ALTO_ID == (Integer) linha[0]
+                    && PRODUTO_ALTO_NOME.equals(linha[1])) {
+                encontrou = true;
             }
-            assertTrue(encontrou);
         }
+        assertTrue(encontrou);
     }
 }

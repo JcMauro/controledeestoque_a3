@@ -2,7 +2,6 @@ package visao;
 
 // Importa a classe DAO para acessar os dados dos produtos no banco de dados.
 import dao.ProdutoDAO;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
@@ -166,15 +165,8 @@ public class FrmRelatorioEstoqueIrregular extends javax.swing.JFrame {
 
         try {
             // Chama o método do DAO para obter o ResultSet com os produtos.
-            ResultSet rs = dao.contarProdutosEstoqueMinimo();
-            while (rs.next()) {
-                // Adiciona uma nova linha à tabela com os dados do produto.
-                modelo.addRow(new Object[]{
-                    rs.getInt("codigo"),         // Coluna 1: Cód. Produto
-                    rs.getString("produto"),     // Coluna 2: Produto
-                    rs.getInt("estoque"),        // Coluna 3: Estoque atual
-                    rs.getInt("estoque_min")     // Coluna 4: Estoque Mínimo
-                });
+            for (Object[] linha : dao.contarProdutosEstoqueMinimo()) {
+                modelo.addRow(linha);
             }
         } catch (SQLException ex) {
             // Em caso de erro SQL, imprime uma mensagem no console.
@@ -200,15 +192,8 @@ public class FrmRelatorioEstoqueIrregular extends javax.swing.JFrame {
 
         try {
             // Chama o método do DAO para obter o ResultSet com os produtos.
-            ResultSet rs = dao.contarProdutosEstoqueMaximo();
-            while (rs.next()) {
-                // Adiciona uma nova linha à tabela com os dados do produto.
-                modelo.addRow(new Object[]{
-                    rs.getInt("codigo"),         // Coluna 1: Cód. Produto
-                    rs.getString("produto"),     // Coluna 2: Produto
-                    rs.getInt("estoque"),        // Coluna 3: Estoque atual
-                    rs.getInt("estoque_max")     // Coluna 4: Estoque Mínimo
-                });
+            for (Object[] linha : dao.contarProdutosEstoqueMaximo()) {
+                modelo.addRow(linha);
             }
         } catch (SQLException ex) {
             System.err.println("Erro ao carregar dados: " + ex.getMessage());
