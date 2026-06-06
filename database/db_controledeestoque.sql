@@ -34,10 +34,12 @@ CREATE TABLE IF NOT EXISTS `tb_produto` (
 CREATE TABLE IF NOT EXISTS `tb_usuarios` (
   `id_cadastro` INT NOT NULL AUTO_INCREMENT,
   `usuario` VARCHAR(100) DEFAULT NULL,
+  `username` VARCHAR(100) NOT NULL,
   `email` VARCHAR(100) DEFAULT NULL,
   `senha` VARCHAR(100) DEFAULT NULL,
   PRIMARY KEY (`id_cadastro`),
   UNIQUE KEY `id_cadastro_UNIQUE` (`id_cadastro`),
   UNIQUE KEY `usuario_UNIQUE` (`usuario`),
+  UNIQUE KEY `uk_tb_usuarios_username` (`username`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

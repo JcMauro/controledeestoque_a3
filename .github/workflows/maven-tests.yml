@@ -1,0 +1,51 @@
+name: Testes Maven
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: Unisul@1520
+          MYSQL_DATABASE: db_controledeestoque
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -pUnisul@1520"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Instalar cliente MySQL
+        run: sudo apt-get update && sudo apt-get install -y mysql-client
+
+      - name: Preparar banco de dados
+        run: mysql -h 127.0.0.1 -P 3306 -u root -pUnisul@1520 < database/db_controledeestoque.sql
+
+      - name: Executar testes
+        env:
+          DB_URL: jdbc:mysql://127.0.0.1:3306/db_controledeestoque
+          DB_USER: root
+          DB_PASSWORD: Unisul@1520
+        run: mvn clean test
