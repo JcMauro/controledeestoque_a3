@@ -27,6 +27,7 @@ class UsuarioDAOTest {
         TesteBancoUtil.executar("DELETE FROM tb_usuarios WHERE usuario = ? OR username = ? OR email = ?", USUARIO, USUARIO, EMAIL);
     }
 
+    // Testa o cadastro, busca e listagem de usuário no banco.
     @Test
     void deveInserirBuscarEListarUsuario() {
         Usuario usuario = new Usuario(USUARIO, EMAIL, SENHA);
@@ -38,16 +39,19 @@ class UsuarioDAOTest {
         assertTrue(usuarioDAO.getLista().stream().anyMatch(u -> USUARIO.equals(u.getNome())));
     }
 
+    // Testa se a busca retorna nulo para usuário inexistente.
     @Test
     void deveRetornarNullParaUsuarioInexistente() {
         assertNull(usuarioDAO.buscarUsuario("usuario_inexistente"));
     }
 
+    // Testa se a busca retorna nulo para e-mail inexistente.
     @Test
     void deveRetornarNullParaEmailInexistente() {
         assertNull(usuarioDAO.buscarEmail("email_inexistente@email.com"));
     }
 
+    // Testa se o banco recusa o cadastro de usuário duplicado.
     @Test
     void deveRecusarUsuarioDuplicado() {
         Usuario usuario = new Usuario(USUARIO, EMAIL, SENHA);

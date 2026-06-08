@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LoginTest {
 
+    // Testa se o login vazio inicia sem usuário e senha.
     @Test
     void deveCriarLoginVazio() {
         Login login = new Login();
@@ -15,6 +16,7 @@ class LoginTest {
         assertEquals(null, login.getSenha());
     }
 
+    // Testa se o login recebe usuário e senha pelo construtor.
     @Test
     void deveCriarLoginCompleto() {
         Login login = new Login("admin", "12345");
@@ -23,6 +25,7 @@ class LoginTest {
         assertEquals("12345", login.getSenha());
     }
 
+    // Testa se usuário e senha podem ser alterados pelos setters.
     @Test
     void deveAlterarDadosDoLogin() {
         Login login = new Login();
@@ -34,6 +37,7 @@ class LoginTest {
         assertEquals("senha", login.getSenha());
     }
 
+    // Testa se a senha não aparece no texto do objeto.
     @Test
     void naoDeveExibirSenhaNoToString() {
         Login login = new Login("admin", "12345");

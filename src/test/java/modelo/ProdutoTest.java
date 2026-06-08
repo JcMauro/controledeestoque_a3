@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProdutoTest {
 
+    // Testa se o produto inicia com os valores padrão.
     @Test
     void deveCriarProdutoComConstrutorPadrao() {
         Produto produto = new Produto();
@@ -20,6 +21,7 @@ class ProdutoTest {
         assertEquals(0, produto.getCategoriaId());
     }
 
+    // Testa se o produto recebe corretamente todos os dados no construtor.
     @Test
     void deveCriarProdutoComConstrutorCompleto() {
         Categoria categoria = new Categoria(3, "Limpeza", "Unidade", "500ml");
@@ -35,6 +37,7 @@ class ProdutoTest {
         assertEquals(3, produto.getCategoriaId());
     }
 
+    // Testa se os dados do produto podem ser alterados pelos setters.
     @Test
     void deveAlterarDadosDoProduto() {
         Categoria categoria = new Categoria(4, "Higiene", "Caixa", "12un");
@@ -59,6 +62,7 @@ class ProdutoTest {
         assertEquals(categoria, produto.getCategoria());
     }
 
+    // Testa o cálculo do valor total usando preço e quantidade.
     @Test
     void deveCalcularValorTotalDoProduto() {
         Produto produto = new Produto();
@@ -68,6 +72,7 @@ class ProdutoTest {
         assertEquals(42.0, produto.getValorTotal());
     }
 
+    // Testa se o texto do produto contém os dados principais.
     @Test
     void deveRetornarTextoDoProduto() {
         Categoria categoria = new Categoria(1, "Bebidas", "Garrafa", "2L");

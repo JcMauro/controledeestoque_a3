@@ -43,6 +43,7 @@ class ProdutoDAOTest {
         TesteBancoUtil.executar("DELETE FROM tb_categoria WHERE id = ?", CATEGORIA_ID);
     }
 
+    // Testa o fluxo completo de produto usando o banco de dados.
     @Test
     void deveInserirBuscarAtualizarListarERemoverProduto() {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -62,6 +63,7 @@ class ProdutoDAOTest {
         assertNull(produtoDAO.buscarProduto(PRODUTO_ID));
     }
 
+    // Testa se o banco recusa o cadastro de produto duplicado.
     @Test
     void deveRecusarProdutoDuplicado() {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -71,16 +73,19 @@ class ProdutoDAOTest {
         assertFalse(TesteBancoUtil.executarSemExibirErro(() -> produtoDAO.inserirProduto(produto)));
     }
 
+    // Testa se a busca retorna nulo quando o produto não existe.
     @Test
     void deveRetornarNullParaProdutoInexistente() {
         assertNull(produtoDAO.buscarProduto(999999));
     }
 
+    // Testa se a busca por nome retorna nulo quando o produto não existe.
     @Test
     void deveRetornarNullParaNomeInexistente() {
         assertNull(produtoDAO.buscarProdutoPorNome("produto_inexistente"));
     }
 
+    // Testa a entrada de estoque e a atualização do produto no banco.
     @Test
     void deveAdicionarEstoqueEAtualizarBanco() throws Mensagem {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -95,6 +100,7 @@ class ProdutoDAOTest {
         assertEquals(9, produtoDAO.buscarProduto(PRODUTO_ID).getQuantidade());
     }
 
+    // Testa a saída de estoque e a atualização do produto no banco.
     @Test
     void deveRemoverEstoqueEAtualizarBanco() throws Mensagem {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -109,6 +115,7 @@ class ProdutoDAOTest {
         assertEquals(7, produtoDAO.buscarProduto(PRODUTO_ID).getQuantidade());
     }
 
+    // Testa o relatório que agrupa produtos por categoria.
     @Test
     void deveListarProdutosAgrupadosPorCategoriaNoRelatorio() throws Exception {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -126,6 +133,7 @@ class ProdutoDAOTest {
         assertTrue(encontrou);
     }
 
+    // Testa o relatório de produtos abaixo do estoque mínimo.
     @Test
     void deveListarProdutosAbaixoDoEstoqueMinimoNoRelatorio() throws Exception {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -143,6 +151,7 @@ class ProdutoDAOTest {
         assertTrue(encontrou);
     }
 
+    // Testa o relatório de produtos acima do estoque máximo.
     @Test
     void deveListarProdutosAcimaDoEstoqueMaximoNoRelatorio() throws Exception {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UsuarioTest {
 
+    // Testa a criação de usuário usado no login.
     @Test
     void deveCriarUsuarioParaLogin() {
         Usuario usuario = new Usuario("admin", "12345");
@@ -17,6 +18,7 @@ class UsuarioTest {
         assertEquals("12345", usuario.getSenha());
     }
 
+    // Testa a criação de usuário usado no cadastro.
     @Test
     void deveCriarUsuarioParaCadastro() {
         Usuario usuario = new Usuario("julio", "julio@email.com", "12345");
@@ -26,6 +28,7 @@ class UsuarioTest {
         assertEquals("12345", usuario.getSenha());
     }
 
+    // Testa a criação de usuário com todos os dados preenchidos.
     @Test
     void deveCriarUsuarioCompleto() {
         Usuario usuario = new Usuario(1, "julio", "julio@email.com", "12345");
@@ -36,6 +39,7 @@ class UsuarioTest {
         assertEquals("12345", usuario.getSenha());
     }
 
+    // Testa se os dados do usuário podem ser alterados pelos setters.
     @Test
     void deveAlterarDadosDoUsuario() {
         Usuario usuario = new Usuario("usuario", "senha");
@@ -51,6 +55,7 @@ class UsuarioTest {
         assertEquals("54321", usuario.getSenha());
     }
 
+    // Testa se a senha não aparece no texto do objeto.
     @Test
     void naoDeveExibirSenhaNoToString() {
         Usuario usuario = new Usuario(1, "julio", "julio@email.com", "12345");

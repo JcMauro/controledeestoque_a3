@@ -31,21 +31,25 @@ class LoginDAOTest {
         TesteBancoUtil.executar("DELETE FROM tb_usuarios WHERE usuario = ? OR username = ? OR email = ?", USUARIO, USUARIO, EMAIL);
     }
 
+    // Testa se o login é aceito com usuário e senha corretos.
     @Test
     void deveValidarLoginCorreto() {
         assertTrue(loginDAO.validarLogin(USUARIO, SENHA));
     }
 
+    // Testa se o login é recusado quando a senha está errada.
     @Test
     void deveRecusarSenhaIncorreta() {
         assertFalse(loginDAO.validarLogin(USUARIO, "senha_errada"));
     }
 
+    // Testa se o login é recusado quando o usuário não existe.
     @Test
     void deveRecusarUsuarioInexistente() {
         assertFalse(loginDAO.validarLogin("usuario_inexistente", SENHA));
     }
 
+    // Testa se um usuário existente pode ser buscado no banco.
     @Test
     void deveBuscarUsuarioExistente() {
         Usuario usuario = loginDAO.buscarUsuario(USUARIO);
@@ -53,6 +57,7 @@ class LoginDAOTest {
         assertNotNull(usuario);
     }
 
+    // Testa se a busca retorna nulo para usuário inexistente.
     @Test
     void deveRetornarNullAoBuscarUsuarioInexistente() {
         assertNull(loginDAO.buscarUsuario("usuario_inexistente"));

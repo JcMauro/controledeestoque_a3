@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CategoriaTest {
 
+    // Testa se a categoria inicia com os valores padrão.
     @Test
     void deveCriarCategoriaComConstrutorPadrao() {
         Categoria categoria = new Categoria();
@@ -15,6 +16,7 @@ class CategoriaTest {
         assertEquals("", categoria.getTamanho());
     }
 
+    // Testa se a categoria recebe corretamente todos os dados no construtor.
     @Test
     void deveCriarCategoriaComConstrutorCompleto() {
         Categoria categoria = new Categoria(1, "Bebidas", "Garrafa", "2L");
@@ -25,6 +27,7 @@ class CategoriaTest {
         assertEquals("2L", categoria.getTamanho());
     }
 
+    // Testa se os dados da categoria podem ser alterados pelos setters.
     @Test
     void deveAlterarDadosDaCategoria() {
         Categoria categoria = new Categoria();
@@ -40,6 +43,7 @@ class CategoriaTest {
         assertEquals("1kg", categoria.getTamanho());
     }
 
+    // Testa o texto exibido quando a categoria é convertida para String.
     @Test
     void deveRetornarTextoFormatadoDaCategoria() {
         Categoria categoria = new Categoria(1, "Bebidas", "Garrafa", "2L");

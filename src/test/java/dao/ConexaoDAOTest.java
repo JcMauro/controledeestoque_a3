@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ConexaoDAOTest {
 
+    // Testa se o sistema consegue abrir conexão com o banco.
     @Test
     void deveConectarNoBancoDeDados() throws SQLException {
         try (Connection conn = new ConexaoDAO().getConexao()) {
@@ -17,6 +18,7 @@ class ConexaoDAOTest {
         }
     }
 
+    // Testa se as tabelas principais existem no banco.
     @Test
     void deveEncontrarTabelasPrincipais() throws SQLException {
         try (Connection conn = new ConexaoDAO().getConexao()) {
@@ -26,6 +28,7 @@ class ConexaoDAOTest {
         }
     }
 
+    // Testa se colunas importantes existem nas tabelas principais.
     @Test
     void deveEncontrarColunasPrincipais() throws SQLException {
         try (Connection conn = new ConexaoDAO().getConexao()) {
