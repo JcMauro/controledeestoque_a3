@@ -17,6 +17,12 @@ class ProdutoValidadorTest {
         assertDoesNotThrow(() -> validador.validarCadastro(1, "Agua", 3.50, 10, 2, 20, categoria));
     }
 
+    // Testa se o cadastro aceita mínimo e máximo com o mesmo valor.
+    @Test
+    void deveAceitarProdutoComMinimoIgualAoMaximo() {
+        assertDoesNotThrow(() -> validador.validarCadastro(1, "Agua", 3.50, 5, 5, 5, categoria));
+    }
+
     // Testa se o cadastro falha quando o id é inválido.
     @Test
     void deveFalharComIdInvalido() {

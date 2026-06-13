@@ -85,6 +85,19 @@ class ProdutoDAOTest {
         assertNull(produtoDAO.buscarProdutoPorNome("produto_inexistente"));
     }
 
+    // Testa se um produto cadastrado pode ser localizado pelo nome.
+    @Test
+    void deveBuscarProdutoExistentePorNome() {
+        Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
+        Produto produto = new Produto(PRODUTO_ID, PRODUTO_NOME, 10.0, 5, 2, 20, "un", categoria);
+
+        assertTrue(produtoDAO.inserirProduto(produto));
+
+        Produto encontrado = produtoDAO.buscarProdutoPorNome(PRODUTO_NOME);
+        assertNotNull(encontrado);
+        assertEquals(PRODUTO_ID, encontrado.getId());
+    }
+
     // Testa a entrada de estoque e a atualização do produto no banco.
     @Test
     void deveAdicionarEstoqueEAtualizarBanco() throws Mensagem {
@@ -151,6 +164,23 @@ class ProdutoDAOTest {
         assertTrue(encontrou);
     }
 
+    // Testa se produto exatamente no mínimo não aparece como estoque baixo.
+    @Test
+    void naoDeveListarProdutoNoMinimoComoEstoqueBaixo() throws Exception {
+        Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
+        Produto produto = new Produto(PRODUTO_ID, PRODUTO_NOME, 10.0, 2, 2, 20, "un", categoria);
+
+        assertTrue(produtoDAO.inserirProduto(produto));
+
+        boolean encontrou = false;
+        for (Object[] linha : produtoDAO.contarProdutosEstoqueMinimo()) {
+            if (PRODUTO_ID == (Integer) linha[0]) {
+                encontrou = true;
+            }
+        }
+        assertFalse(encontrou);
+    }
+
     // Testa o relatório de produtos acima do estoque máximo.
     @Test
     void deveListarProdutosAcimaDoEstoqueMaximoNoRelatorio() throws Exception {
@@ -167,5 +197,22 @@ class ProdutoDAOTest {
             }
         }
         assertTrue(encontrou);
+    }
+
+    // Testa se produto exatamente no máximo não aparece como estoque alto.
+    @Test
+    void naoDeveListarProdutoNoMaximoComoEstoqueAlto() throws Exception {
+        Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
+        Produto produto = new Produto(PRODUTO_ID, PRODUTO_NOME, 10.0, 20, 2, 20, "un", categoria);
+
+        assertTrue(produtoDAO.inserirProduto(produto));
+
+        boolean encontrou = false;
+        for (Object[] linha : produtoDAO.contarProdutosEstoqueMaximo()) {
+            if (PRODUTO_ID == (Integer) linha[0]) {
+                encontrou = true;
+            }
+        }
+        assertFalse(encontrou);
     }
 }
