@@ -18,6 +18,20 @@ class ProdutoValidadorTest {
         assertDoesNotThrow(() -> validador.validarCadastro(1, "Agua", 3.50, 10, 2, 20, categoria));
     }
 
+    // Verifica um produto com preço decimal válido.
+    // Esse cenário é importante porque preço de produto normalmente não fica só em valor inteiro.
+    @Test
+    void deveAceitarProdutoComPrecoDecimal() {
+        assertDoesNotThrow(() -> validador.validarCadastro(1, "Agua", 3.99, 10, 2, 20, categoria));
+    }
+
+    // Verifica o cadastro com quantidade inicial igual a zero.
+    // O estoque pode começar zerado, desde que não seja um valor negativo.
+    @Test
+    void deveAceitarProdutoComQuantidadeZero() {
+        assertDoesNotThrow(() -> validador.validarCadastro(1, "Agua", 3.50, 0, 2, 20, categoria));
+    }
+
     // Confere uma situação de limite em que mínimo e máximo são iguais.
     // Como a regra só impede mínimo maior que máximo, esse caso deve ser aceito.
     @Test
@@ -37,6 +51,13 @@ class ProdutoValidadorTest {
     @Test
     void deveFalharComNomeCurto() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "A", 3.50, 10, 2, 20, categoria));
+    }
+
+    // Verifica o cadastro quando o nome do produto está nulo.
+    // O validador precisa impedir esse caso para evitar produto sem identificação.
+    @Test
+    void deveFalharComNomeNulo() {
+        assertThrows(Mensagem.class, () -> validador.validarCadastro(1, null, 3.50, 10, 2, 20, categoria));
     }
 
     // Confere a regra de preço.
