@@ -11,92 +11,92 @@ class ProdutoValidadorTest {
     private final ProdutoValidador validador = new ProdutoValidador();
     private final Categoria categoria = new Categoria(1, "Bebidas", "Garrafa", "2L");
 
-    // Usa um produto preenchido corretamente para confirmar o caminho de sucesso da validação.
-    // Quando todos os campos estão dentro da regra, nenhuma mensagem de erro deve ser lançada.
+    // Cenário básico de produto válido.
+    // Todos os campos principais estão preenchidos e dentro dos limites esperados.
     @Test
     void deveAceitarProdutoValido() {
         assertDoesNotThrow(() -> validador.validarCadastro(1, "Agua", 3.50, 10, 2, 20, categoria));
     }
 
-    // Verifica um produto com preço decimal válido.
-    // Esse cenário é importante porque preço de produto normalmente não fica só em valor inteiro.
+    // O preço decimal representa melhor uma situação real de cadastro.
+    // O teste mostra que o validador aceita valores quebrados, desde que sejam maiores que zero.
     @Test
     void deveAceitarProdutoComPrecoDecimal() {
         assertDoesNotThrow(() -> validador.validarCadastro(1, "Agua", 3.99, 10, 2, 20, categoria));
     }
 
-    // Verifica o cadastro com quantidade inicial igual a zero.
-    // O estoque pode começar zerado, desde que não seja um valor negativo.
+    // Produto recém-cadastrado pode começar sem estoque.
+    // A regra permite zero, mas não permite quantidade negativa.
     @Test
     void deveAceitarProdutoComQuantidadeZero() {
         assertDoesNotThrow(() -> validador.validarCadastro(1, "Agua", 3.50, 0, 2, 20, categoria));
     }
 
-    // Confere uma situação de limite em que mínimo e máximo são iguais.
-    // Como a regra só impede mínimo maior que máximo, esse caso deve ser aceito.
+    // Este teste usa mínimo e máximo iguais para validar o limite da regra.
+    // Como o mínimo não passa do máximo, o cadastro continua sendo válido.
     @Test
     void deveAceitarProdutoComMinimoIgualAoMaximo() {
         assertDoesNotThrow(() -> validador.validarCadastro(1, "Agua", 3.50, 5, 5, 5, categoria));
     }
 
-    // Valida o id do produto.
-    // Um id igual a zero não representa um cadastro válido, então o validador precisa barrar.
+    // O id zero é usado como exemplo de identificador inválido.
+    // O cadastro de produto deve exigir um id positivo.
     @Test
     void deveFalharComIdInvalido() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(0, "Agua", 3.50, 10, 2, 20, categoria));
     }
 
-    // Testa o nome do produto com apenas uma letra.
-    // Esse caso ajuda a evitar cadastro com descrição incompleta ou digitada sem cuidado.
+    // Nome muito curto deixa o produto sem uma identificação adequada.
+    // Por isso o teste espera que o validador lance uma mensagem de erro.
     @Test
     void deveFalharComNomeCurto() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "A", 3.50, 10, 2, 20, categoria));
     }
 
-    // Verifica o cadastro quando o nome do produto está nulo.
-    // O validador precisa impedir esse caso para evitar produto sem identificação.
+    // Aqui o nome nem é enviado para a validação.
+    // O teste garante que o produto não siga sem uma descrição.
     @Test
     void deveFalharComNomeNulo() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, null, 3.50, 10, 2, 20, categoria));
     }
 
-    // Confere a regra de preço.
-    // Produto com valor zero não deve ser aceito no cadastro, porque não representa um preço real.
+    // Preço zero é considerado inválido para o cadastro.
+    // Esse teste evita que um produto seja salvo sem valor de venda definido.
     @Test
     void deveFalharComPrecoZero() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "Agua", 0.0, 10, 2, 20, categoria));
     }
 
-    // Valida a quantidade atual do estoque.
-    // Como não faz sentido iniciar um produto com estoque negativo, o teste espera erro.
+    // Estoque negativo não deve existir no cadastro inicial.
+    // O teste cobre esse erro antes que o dado chegue ao banco.
     @Test
     void deveFalharComQuantidadeNegativa() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "Agua", 3.50, -1, 2, 20, categoria));
     }
 
-    // Confere o estoque mínimo informado no cadastro.
-    // O mínimo precisa ser maior que zero para que os relatórios de estoque tenham uma referência válida.
+    // O estoque mínimo é usado como referência para alertas e relatórios.
+    // Se ele for zero, a regra de controle perde sentido e deve falhar.
     @Test
     void deveFalharComMinimoInvalido() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "Agua", 3.50, 10, 0, 20, categoria));
     }
 
-    // Confere o estoque máximo informado no cadastro.
-    // Um máximo igual a zero deixa a regra de controle de estoque sem utilidade, então deve falhar.
+    // O máximo também precisa ser maior que zero.
+    // Sem esse limite, não dá para controlar excesso de estoque.
     @Test
     void deveFalharComMaximoInvalido() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "Agua", 3.50, 10, 2, 0, categoria));
     }
 
-    // Testa uma regra importante entre mínimo e máximo.
-    // O mínimo não pode ser maior que o máximo, pois isso deixaria o controle de estoque incoerente.
+    // Este cenário força uma regra incoerente: mínimo maior que máximo.
+    // O validador precisa impedir essa configuração.
     @Test
     void deveFalharComMinimoMaiorQueMaximo() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "Agua", 3.50, 10, 30, 20, categoria));
     }
 
-    // Garante que o produto seja sempre vinculado a uma categoria.
-    // Sem categoria, o produto ficaria incompleto e também prejudicaria o relatório por categoria.
+    // Produto sem categoria fica incompleto para o sistema.
+    // A categoria também é usada nos relatórios, então ela precisa ser obrigatória.
     @Test
     void deveFalharComCategoriaNula() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "Agua", 3.50, 10, 2, 20, null));

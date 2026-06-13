@@ -9,7 +9,8 @@ class EstoqueValidadorTest {
 
     private final EstoqueValidador validador = new EstoqueValidador();
 
-    // Testa se uma entrada válida aumenta o estoque corretamente.
+    // Este teste representa uma entrada normal de estoque.
+    // Ele confirma se a soma entre estoque atual e quantidade informada gera o novo valor esperado.
     @Test
     void deveCalcularAdicaoValida() throws Mensagem {
         int novoEstoque = validador.calcularAdicao(10, 5, 20);
@@ -26,25 +27,29 @@ class EstoqueValidadorTest {
         assertEquals(20, novoEstoque);
     }
 
-    // Testa se a entrada falha quando a quantidade é zero.
+    // Quantidade zero não movimenta o estoque de verdade.
+    // Por isso o validador deve recusar a operação antes de alterar qualquer valor.
     @Test
     void deveFalharAoAdicionarQuantidadeZero() {
         assertThrows(Mensagem.class, () -> validador.calcularAdicao(10, 0, 20));
     }
 
-    // Testa se a entrada falha quando a quantidade é negativa.
+    // Entrada com quantidade negativa seria uma operação sem sentido para adicionar estoque.
+    // O teste garante que esse tipo de dado inválido seja bloqueado.
     @Test
     void deveFalharAoAdicionarQuantidadeNegativa() {
         assertThrows(Mensagem.class, () -> validador.calcularAdicao(10, -1, 20));
     }
 
-    // Testa se a entrada falha ao ultrapassar o estoque máximo.
+    // Aqui a entrada ultrapassaria o estoque máximo permitido.
+    // Esse limite evita que o produto fique registrado acima da capacidade definida.
     @Test
     void deveFalharAoUltrapassarEstoqueMaximo() {
         assertThrows(Mensagem.class, () -> validador.calcularAdicao(10, 15, 20));
     }
 
-    // Testa se uma saída válida reduz o estoque corretamente.
+    // Este é o caminho comum de retirada de estoque.
+    // A quantidade removida deve ser descontada e o resultado precisa bater com o valor esperado.
     @Test
     void deveCalcularRemocaoValida() throws Mensagem {
         int novoEstoque = validador.calcularRemocao(10, 5, 2);
@@ -61,19 +66,22 @@ class EstoqueValidadorTest {
         assertEquals(2, novoEstoque);
     }
 
-    // Testa se a saída falha quando a quantidade é zero.
+    // Remover zero unidades não representa uma movimentação real.
+    // O validador deve tratar isso como entrada inválida.
     @Test
     void deveFalharAoRemoverQuantidadeZero() {
         assertThrows(Mensagem.class, () -> validador.calcularRemocao(10, 0, 2));
     }
 
-    // Testa se a saída falha quando a quantidade é negativa.
+    // Saída negativa também não faz sentido dentro da regra de estoque.
+    // O teste confirma que a validação impede essa operação.
     @Test
     void deveFalharAoRemoverQuantidadeNegativa() {
         assertThrows(Mensagem.class, () -> validador.calcularRemocao(10, -1, 2));
     }
 
-    // Testa se a saída falha ao ficar abaixo do estoque mínimo.
+    // Neste caso a retirada deixaria o estoque abaixo do mínimo.
+    // A regra precisa bloquear para manter a quantidade dentro do limite definido.
     @Test
     void deveFalharAoFicarAbaixoDoEstoqueMinimo() {
         assertThrows(Mensagem.class, () -> validador.calcularRemocao(10, 9, 2));

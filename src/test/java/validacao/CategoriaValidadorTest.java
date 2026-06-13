@@ -9,19 +9,22 @@ class CategoriaValidadorTest {
 
     private final CategoriaValidador validador = new CategoriaValidador();
 
-    // Testa se uma categoria com dados válidos é aceita.
+    // Este é o cenário positivo da categoria.
+    // Com id, nome, embalagem e tamanho preenchidos corretamente, o cadastro deve passar sem erro.
     @Test
     void deveAceitarCategoriaValida() {
         assertDoesNotThrow(() -> validador.validarCadastro(1, "Bebidas", "Garrafa", "2L"));
     }
 
-    // Testa se o cadastro falha quando o id é inválido.
+    // Aqui é conferido o id da categoria.
+    // Como o sistema trabalha com id maior que zero, o valor 0 precisa ser recusado.
     @Test
     void deveFalharComIdInvalido() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(0, "Bebidas", "Garrafa", "2L"));
     }
 
-    // Testa se o cadastro falha quando o nome é muito curto.
+    // O nome com apenas uma letra é usado para representar um cadastro mal preenchido.
+    // A validação deve impedir esse tipo de informação incompleta.
     @Test
     void deveFalharComNomeCurto() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "B", "Garrafa", "2L"));
@@ -41,7 +44,8 @@ class CategoriaValidadorTest {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, null, "Garrafa", "2L"));
     }
 
-    // Testa se o cadastro falha quando a embalagem está vazia.
+    // A embalagem vazia também precisa ser barrada.
+    // Sem essa informação, a categoria fica pouco clara para o usuário do sistema.
     @Test
     void deveFalharComEmbalagemVazia() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "Bebidas", "", "2L"));
@@ -54,7 +58,8 @@ class CategoriaValidadorTest {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "Bebidas", null, "2L"));
     }
 
-    // Testa se o cadastro falha quando o tamanho está vazio.
+    // Por fim, este teste verifica o tamanho vazio.
+    // Ele completa a validação dos campos obrigatórios da categoria.
     @Test
     void deveFalharComTamanhoVazio() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(1, "Bebidas", "Garrafa", ""));
