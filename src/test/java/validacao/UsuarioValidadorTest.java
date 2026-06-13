@@ -21,10 +21,22 @@ class UsuarioValidadorTest {
         assertThrows(Mensagem.class, () -> validador.validarCadastro("j", "julio@email.com", "12345"));
     }
 
+    // Testa se o cadastro falha quando o usuário está nulo.
+    @Test
+    void deveFalharComUsuarioNulo() {
+        assertThrows(Mensagem.class, () -> validador.validarCadastro(null, "julio@email.com", "12345"));
+    }
+
     // Testa se o cadastro falha quando o e-mail está vazio.
     @Test
     void deveFalharComEmailVazio() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro("julio", "", "12345"));
+    }
+
+    // Testa se o cadastro falha quando o e-mail está nulo.
+    @Test
+    void deveFalharComEmailNulo() {
+        assertThrows(Mensagem.class, () -> validador.validarCadastro("julio", null, "12345"));
     }
 
     // Testa se o cadastro falha quando o e-mail é inválido.
@@ -37,6 +49,12 @@ class UsuarioValidadorTest {
     @Test
     void deveFalharComSenhaVazia() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro("julio", "julio@email.com", ""));
+    }
+
+    // Testa se o cadastro falha quando a senha está nula.
+    @Test
+    void deveFalharComSenhaNula() {
+        assertThrows(Mensagem.class, () -> validador.validarCadastro("julio", "julio@email.com", null));
     }
 
     // Testa se o cadastro falha quando a senha é muito curta.
