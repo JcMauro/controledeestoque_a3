@@ -25,7 +25,8 @@ class CategoriaDAOTest {
         TesteBancoUtil.executar("DELETE FROM tb_categoria WHERE id = ?", ID);
     }
 
-    // Testa o fluxo completo de categoria usando o banco de dados.
+    // Aqui é testado o caminho principal da categoria no banco:
+    // cadastra, consulta, lista, atualiza e depois remove o registro criado.
     @Test
     void deveInserirBuscarAtualizarListarERemoverCategoria() {
         Categoria categoria = new Categoria(ID, "Teste Integracao", "Caixa", "1kg");
@@ -43,7 +44,8 @@ class CategoriaDAOTest {
         assertNull(categoriaDAO.buscarCategoria(ID));
     }
 
-    // Testa se o banco recusa o cadastro de categoria duplicada.
+    // Neste teste a mesma categoria é inserida duas vezes.
+    // A segunda tentativa precisa falhar, porque o banco não deve aceitar o mesmo id duplicado.
     @Test
     void deveRecusarCategoriaDuplicada() {
         Categoria categoria = new Categoria(ID, "Teste Integracao", "Caixa", "1kg");
@@ -52,7 +54,8 @@ class CategoriaDAOTest {
         assertFalse(TesteBancoUtil.executarSemExibirErro(() -> categoriaDAO.inserirCategoria(categoria)));
     }
 
-    // Testa se a busca retorna nulo quando a categoria não existe.
+    // Verifica uma consulta sem resultado, simulando a busca por uma categoria que não foi cadastrada.
+    // O retorno esperado é nulo, indicando que o DAO tratou a ausência do registro.
     @Test
     void deveRetornarNullParaCategoriaInexistente() {
         assertNull(categoriaDAO.buscarCategoria(999999));

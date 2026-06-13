@@ -43,7 +43,8 @@ class ProdutoDAOTest {
         TesteBancoUtil.executar("DELETE FROM tb_categoria WHERE id = ?", CATEGORIA_ID);
     }
 
-    // Testa o fluxo completo de produto usando o banco de dados.
+    // Este teste cobre o fluxo principal do produto no banco.
+    // Ele cadastra, busca, lista, atualiza e remove o produto criado para o cenário de teste.
     @Test
     void deveInserirBuscarAtualizarListarERemoverProduto() {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -63,7 +64,8 @@ class ProdutoDAOTest {
         assertNull(produtoDAO.buscarProduto(PRODUTO_ID));
     }
 
-    // Testa se o banco recusa o cadastro de produto duplicado.
+    // Aqui o mesmo produto é inserido duas vezes.
+    // A segunda inserção deve ser recusada para evitar duplicidade no cadastro.
     @Test
     void deveRecusarProdutoDuplicado() {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -73,13 +75,15 @@ class ProdutoDAOTest {
         assertFalse(TesteBancoUtil.executarSemExibirErro(() -> produtoDAO.inserirProduto(produto)));
     }
 
-    // Testa se a busca retorna nulo quando o produto não existe.
+    // Verifica a busca por um id que não pertence a nenhum produto cadastrado.
+    // O DAO deve devolver nulo quando não encontrar registro.
     @Test
     void deveRetornarNullParaProdutoInexistente() {
         assertNull(produtoDAO.buscarProduto(999999));
     }
 
-    // Testa se a busca por nome retorna nulo quando o produto não existe.
+    // Faz a mesma validação anterior, mas pesquisando pelo nome do produto.
+    // Como o nome não existe no banco, o retorno esperado também é nulo.
     @Test
     void deveRetornarNullParaNomeInexistente() {
         assertNull(produtoDAO.buscarProdutoPorNome("produto_inexistente"));

@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ConexaoDAOTest {
 
-    // Testa se o sistema consegue abrir conexão com o banco.
+    // Primeiro é validado se a aplicação consegue abrir uma conexão real com o MySQL.
+    // Esse teste ajuda a identificar rapidamente problema de banco, usuário, senha ou URL.
     @Test
     void deveConectarNoBancoDeDados() throws SQLException {
         try (Connection conn = new ConexaoDAO().getConexao()) {
@@ -18,7 +19,8 @@ class ConexaoDAOTest {
         }
     }
 
-    // Testa se as tabelas principais existem no banco.
+    // Depois da conexão, é conferido se as tabelas principais existem.
+    // Sem essas tabelas, as telas e os DAOs do sistema não conseguem funcionar corretamente.
     @Test
     void deveEncontrarTabelasPrincipais() throws SQLException {
         try (Connection conn = new ConexaoDAO().getConexao()) {
@@ -28,7 +30,8 @@ class ConexaoDAOTest {
         }
     }
 
-    // Testa se colunas importantes existem nas tabelas principais.
+    // Este teste olha a estrutura mínima das tabelas.
+    // A ideia é garantir que colunas usadas pelo código ainda existem no banco.
     @Test
     void deveEncontrarColunasPrincipais() throws SQLException {
         try (Connection conn = new ConexaoDAO().getConexao()) {

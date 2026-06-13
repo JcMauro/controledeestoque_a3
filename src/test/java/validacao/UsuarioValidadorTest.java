@@ -21,7 +21,8 @@ class UsuarioValidadorTest {
         assertThrows(Mensagem.class, () -> validador.validarCadastro("j", "julio@email.com", "12345"));
     }
 
-    // Testa se o cadastro falha quando o usuário está nulo.
+    // Garante que o validador não aceita cadastro sem informar o usuário.
+    // Esse caso representa uma falha de preenchimento antes de chegar ao banco.
     @Test
     void deveFalharComUsuarioNulo() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro(null, "julio@email.com", "12345"));
@@ -33,7 +34,8 @@ class UsuarioValidadorTest {
         assertThrows(Mensagem.class, () -> validador.validarCadastro("julio", "", "12345"));
     }
 
-    // Testa se o cadastro falha quando o e-mail está nulo.
+    // Confere o comportamento quando o e-mail nem chega preenchido para a validação.
+    // O esperado é lançar a mensagem de erro, igual acontece com e-mail vazio.
     @Test
     void deveFalharComEmailNulo() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro("julio", null, "12345"));
@@ -51,7 +53,8 @@ class UsuarioValidadorTest {
         assertThrows(Mensagem.class, () -> validador.validarCadastro("julio", "julio@email.com", ""));
     }
 
-    // Testa se o cadastro falha quando a senha está nula.
+    // Verifica a regra de senha obrigatória quando o valor recebido é nulo.
+    // Assim o cadastro não segue adiante com uma senha inexistente.
     @Test
     void deveFalharComSenhaNula() {
         assertThrows(Mensagem.class, () -> validador.validarCadastro("julio", "julio@email.com", null));

@@ -28,7 +28,8 @@ class UsuarioDAOTest {
         TesteBancoUtil.executar("DELETE FROM tb_usuarios WHERE usuario = ? OR username = ? OR email = ?", USUARIO, USUARIO, EMAIL);
     }
 
-    // Testa o cadastro, busca e listagem de usuário no banco.
+    // Este teste verifica o fluxo básico de usuário no banco.
+    // Depois de cadastrar, ele confirma se o usuário aparece nas buscas e nas listagens.
     @Test
     void deveInserirBuscarEListarUsuario() {
         Usuario usuario = new Usuario(USUARIO, EMAIL, SENHA);
@@ -40,7 +41,8 @@ class UsuarioDAOTest {
         assertTrue(usuarioDAO.getLista().stream().anyMatch(u -> USUARIO.equals(u.getNome())));
     }
 
-    // Testa se a busca por usuário retorna os dados corretos do banco.
+    // Além de buscar o usuário, este teste confere os dados retornados.
+    // Assim dá para saber se nome, e-mail e senha vieram do banco corretamente.
     @Test
     void deveBuscarUsuarioComDadosCorretos() {
         Usuario usuario = new Usuario(USUARIO, EMAIL, SENHA);
@@ -54,7 +56,8 @@ class UsuarioDAOTest {
         assertEquals(SENHA, encontrado.getSenha());
     }
 
-    // Testa se a busca por e-mail retorna os dados corretos do banco.
+    // Este cenário valida a consulta pelo e-mail.
+    // O registro encontrado precisa ser o mesmo usuário cadastrado no começo do teste.
     @Test
     void deveBuscarEmailComDadosCorretos() {
         Usuario usuario = new Usuario(USUARIO, EMAIL, SENHA);
@@ -68,19 +71,22 @@ class UsuarioDAOTest {
         assertEquals(SENHA, encontrado.getSenha());
     }
 
-    // Testa se a busca retorna nulo para usuário inexistente.
+    // Pesquisa um usuário que não existe na base de teste.
+    // O retorno nulo mostra que o DAO não criou nenhum objeto indevido.
     @Test
     void deveRetornarNullParaUsuarioInexistente() {
         assertNull(usuarioDAO.buscarUsuario("usuario_inexistente"));
     }
 
-    // Testa se a busca retorna nulo para e-mail inexistente.
+    // Faz a consulta usando um e-mail que não foi cadastrado.
+    // O teste confirma que a busca por e-mail também trata corretamente a ausência de dados.
     @Test
     void deveRetornarNullParaEmailInexistente() {
         assertNull(usuarioDAO.buscarEmail("email_inexistente@email.com"));
     }
 
-    // Testa se o banco recusa o cadastro de usuário duplicado.
+    // Tenta gravar o mesmo usuário mais de uma vez.
+    // A primeira inserção deve funcionar, mas a repetição precisa ser recusada pelo banco.
     @Test
     void deveRecusarUsuarioDuplicado() {
         Usuario usuario = new Usuario(USUARIO, EMAIL, SENHA);

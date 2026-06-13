@@ -31,37 +31,43 @@ class LoginDAOTest {
         TesteBancoUtil.executar("DELETE FROM tb_usuarios WHERE usuario = ? OR username = ? OR email = ?", USUARIO, USUARIO, EMAIL);
     }
 
-    // Testa se o login é aceito com usuário e senha corretos.
+    // Usa um usuário preparado no banco antes do teste.
+    // Com usuário e senha corretos, o login deve ser considerado válido.
     @Test
     void deveValidarLoginCorreto() {
         assertTrue(loginDAO.validarLogin(USUARIO, SENHA));
     }
 
-    // Testa se o login é recusado quando a senha está errada.
+    // Mantém o usuário correto, mas troca a senha.
+    // O objetivo é confirmar que o sistema não libera acesso com senha incorreta.
     @Test
     void deveRecusarSenhaIncorreta() {
         assertFalse(loginDAO.validarLogin(USUARIO, "senha_errada"));
     }
 
-    // Testa se o login é recusado quando o usuário não existe.
+    // Tenta fazer login com um usuário que não foi cadastrado no banco de teste.
+    // Mesmo com uma senha preenchida, o retorno correto deve ser falso.
     @Test
     void deveRecusarUsuarioInexistente() {
         assertFalse(loginDAO.validarLogin("usuario_inexistente", SENHA));
     }
 
-    // Testa se o login é recusado quando o usuário está vazio.
+    // Simula o campo de usuário vazio na tentativa de login.
+    // Esse cenário precisa ser recusado, pois não existe usuário em branco no cadastro.
     @Test
     void deveRecusarUsuarioVazio() {
         assertFalse(loginDAO.validarLogin("", SENHA));
     }
 
-    // Testa se o login é recusado quando a senha está vazia.
+    // Simula o campo de senha vazio para um usuário existente.
+    // O teste garante que o DAO não aceite login sem senha.
     @Test
     void deveRecusarSenhaVazia() {
         assertFalse(loginDAO.validarLogin(USUARIO, ""));
     }
 
-    // Testa se um usuário existente pode ser buscado no banco.
+    // Busca no banco o mesmo usuário criado no preparo do teste.
+    // Se retornar um objeto, significa que a consulta de login encontrou o registro.
     @Test
     void deveBuscarUsuarioExistente() {
         Usuario usuario = loginDAO.buscarUsuario(USUARIO);
@@ -69,7 +75,8 @@ class LoginDAOTest {
         assertNotNull(usuario);
     }
 
-    // Testa se a busca retorna nulo para usuário inexistente.
+    // Faz uma busca por um nome de usuário que não existe.
+    // O esperado é retornar nulo, e não um usuário preenchido incorretamente.
     @Test
     void deveRetornarNullAoBuscarUsuarioInexistente() {
         assertNull(loginDAO.buscarUsuario("usuario_inexistente"));
