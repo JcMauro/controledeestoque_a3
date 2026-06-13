@@ -17,6 +17,15 @@ class EstoqueValidadorTest {
         assertEquals(15, novoEstoque);
     }
 
+    // Verifica a entrada de estoque chegando exatamente no limite máximo.
+    // Esse caso deve ser aceito, porque a regra só bloqueia quando passa do máximo.
+    @Test
+    void devePermitirAdicaoAteEstoqueMaximo() throws Mensagem {
+        int novoEstoque = validador.calcularAdicao(10, 10, 20);
+
+        assertEquals(20, novoEstoque);
+    }
+
     // Testa se a entrada falha quando a quantidade é zero.
     @Test
     void deveFalharAoAdicionarQuantidadeZero() {
@@ -41,6 +50,15 @@ class EstoqueValidadorTest {
         int novoEstoque = validador.calcularRemocao(10, 5, 2);
 
         assertEquals(5, novoEstoque);
+    }
+
+    // Verifica a saída de estoque chegando exatamente no limite mínimo.
+    // Esse cenário ainda é válido, pois o estoque não ficou abaixo do permitido.
+    @Test
+    void devePermitirRemocaoAteEstoqueMinimo() throws Mensagem {
+        int novoEstoque = validador.calcularRemocao(10, 8, 2);
+
+        assertEquals(2, novoEstoque);
     }
 
     // Testa se a saída falha quando a quantidade é zero.
