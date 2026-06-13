@@ -4,6 +4,7 @@ import modelo.Usuario;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -37,6 +38,34 @@ class UsuarioDAOTest {
         assertNotNull(usuarioDAO.buscarEmail(EMAIL));
         assertTrue(usuarioDAO.getAllusuarios().contains(USUARIO));
         assertTrue(usuarioDAO.getLista().stream().anyMatch(u -> USUARIO.equals(u.getNome())));
+    }
+
+    // Testa se a busca por usuário retorna os dados corretos do banco.
+    @Test
+    void deveBuscarUsuarioComDadosCorretos() {
+        Usuario usuario = new Usuario(USUARIO, EMAIL, SENHA);
+
+        assertTrue(usuarioDAO.inserirUsuario(usuario));
+
+        Usuario encontrado = usuarioDAO.buscarUsuario(USUARIO);
+        assertNotNull(encontrado);
+        assertEquals(USUARIO, encontrado.getNome());
+        assertEquals(EMAIL, encontrado.getEmail());
+        assertEquals(SENHA, encontrado.getSenha());
+    }
+
+    // Testa se a busca por e-mail retorna os dados corretos do banco.
+    @Test
+    void deveBuscarEmailComDadosCorretos() {
+        Usuario usuario = new Usuario(USUARIO, EMAIL, SENHA);
+
+        assertTrue(usuarioDAO.inserirUsuario(usuario));
+
+        Usuario encontrado = usuarioDAO.buscarEmail(EMAIL);
+        assertNotNull(encontrado);
+        assertEquals(USUARIO, encontrado.getNome());
+        assertEquals(EMAIL, encontrado.getEmail());
+        assertEquals(SENHA, encontrado.getSenha());
     }
 
     // Testa se a busca retorna nulo para usuário inexistente.
