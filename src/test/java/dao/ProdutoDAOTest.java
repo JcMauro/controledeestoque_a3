@@ -89,7 +89,8 @@ class ProdutoDAOTest {
         assertNull(produtoDAO.buscarProdutoPorNome("produto_inexistente"));
     }
 
-    // Testa se um produto cadastrado pode ser localizado pelo nome.
+    // Depois de cadastrar um produto, este teste procura ele pelo nome.
+    // A ideia é garantir que a busca usada nas telas encontre o item certo e retorne o id esperado.
     @Test
     void deveBuscarProdutoExistentePorNome() {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -102,7 +103,8 @@ class ProdutoDAOTest {
         assertEquals(PRODUTO_ID, encontrado.getId());
     }
 
-    // Testa a entrada de estoque e a atualização do produto no banco.
+    // Simula uma entrada de estoque, como acontece quando chegam novas unidades do produto.
+    // Primeiro calcula a nova quantidade com a regra do validador e depois confirma se o banco foi atualizado.
     @Test
     void deveAdicionarEstoqueEAtualizarBanco() throws Mensagem {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -117,7 +119,8 @@ class ProdutoDAOTest {
         assertEquals(9, produtoDAO.buscarProduto(PRODUTO_ID).getQuantidade());
     }
 
-    // Testa a saída de estoque e a atualização do produto no banco.
+    // Simula uma retirada de estoque, que seria uma venda ou baixa do produto.
+    // O teste valida se a quantidade diminui corretamente e se esse novo valor fica salvo no banco.
     @Test
     void deveRemoverEstoqueEAtualizarBanco() throws Mensagem {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -132,7 +135,8 @@ class ProdutoDAOTest {
         assertEquals(7, produtoDAO.buscarProduto(PRODUTO_ID).getQuantidade());
     }
 
-    // Testa o relatório que agrupa produtos por categoria.
+    // Valida o relatório de produtos por categoria.
+    // O produto é cadastrado em uma categoria de teste e depois o relatório precisa mostrar essa categoria na contagem.
     @Test
     void deveListarProdutosAgrupadosPorCategoriaNoRelatorio() throws Exception {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -150,7 +154,8 @@ class ProdutoDAOTest {
         assertTrue(encontrou);
     }
 
-    // Testa o relatório de produtos abaixo do estoque mínimo.
+    // Verifica o relatório de estoque baixo.
+    // O produto é criado com quantidade menor que o mínimo para confirmar se aparece na lista de alerta.
     @Test
     void deveListarProdutosAbaixoDoEstoqueMinimoNoRelatorio() throws Exception {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -168,7 +173,8 @@ class ProdutoDAOTest {
         assertTrue(encontrou);
     }
 
-    // Testa se produto exatamente no mínimo não aparece como estoque baixo.
+    // Confere o limite exato do estoque mínimo.
+    // Se a quantidade está igual ao mínimo, o produto ainda não deve entrar no relatório de estoque baixo.
     @Test
     void naoDeveListarProdutoNoMinimoComoEstoqueBaixo() throws Exception {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -185,7 +191,8 @@ class ProdutoDAOTest {
         assertFalse(encontrou);
     }
 
-    // Testa o relatório de produtos acima do estoque máximo.
+    // Verifica o relatório de estoque acima do limite.
+    // O produto é criado com quantidade maior que o máximo para confirmar se o relatório identifica o excesso.
     @Test
     void deveListarProdutosAcimaDoEstoqueMaximoNoRelatorio() throws Exception {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
@@ -203,7 +210,8 @@ class ProdutoDAOTest {
         assertTrue(encontrou);
     }
 
-    // Testa se produto exatamente no máximo não aparece como estoque alto.
+    // Confere o limite exato do estoque máximo.
+    // Quando a quantidade é igual ao máximo, ainda está dentro da regra e não deve aparecer como estoque alto.
     @Test
     void naoDeveListarProdutoNoMaximoComoEstoqueAlto() throws Exception {
         Categoria categoria = categoriaDAO.buscarCategoria(CATEGORIA_ID);
