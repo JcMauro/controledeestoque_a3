@@ -2,7 +2,6 @@ name: Testes Maven
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  CI_DB_PASSWORD: senha_teste_ci
 
 on:
   push:
@@ -20,12 +19,12 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: ${{ env.CI_DB_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: senha_teste_ci
           MYSQL_DATABASE: db_controledeestoque
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -p${{ env.CI_DB_PASSWORD }}"
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -psenha_teste_ci"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=10
@@ -47,12 +46,12 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y mysql-client
 
       - name: Preparar banco de dados
-        run: mysql -h 127.0.0.1 -P 3306 -u root -p${{ env.CI_DB_PASSWORD }} < database/db_controledeestoque.sql
+        run: mysql -h 127.0.0.1 -P 3306 -u root -psenha_teste_ci < database/db_controledeestoque.sql
 
       - name: Executar testes e analise SonarCloud
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           DB_URL: jdbc:mysql://127.0.0.1:3306/db_controledeestoque
           DB_USER: root
-          DB_PASSWORD: ${{ env.CI_DB_PASSWORD }}
+          DB_PASSWORD: senha_teste_ci
         run: mvn clean verify sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
