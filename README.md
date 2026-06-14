@@ -2,6 +2,8 @@
 
 Este sistema foi desenvolvido como parte da disciplina de Programacao de Solucoes Computacionais (PSC) da Universidade do Sul de Santa Catarina (UNISUL). O objetivo do projeto e criar uma aplicacao para gerenciamento de controle de estoque, com interfaces graficas, integracao com banco de dados e uso do padrao DAO.
 
+Nesta etapa, o projeto foi revisado e complementado para a disciplina de Gestao e Qualidade de Software.
+
 ## Descricao do Projeto
 
 Este projeto tem como objetivo o desenvolvimento de um sistema de controle de estoque, permitindo ao usuario realizar uma gestao mais eficiente dos produtos armazenados. O sistema oferece funcionalidades como cadastro e atualizacao de produtos, cadastro de categorias, movimentacao de estoque e geracao de relatorios.
@@ -19,8 +21,26 @@ A aplicacao foi desenvolvida utilizando Java com Swing para a interface grafica,
 | --- | --- | --- |
 | Julio Cesar de Souza Mauro | [JcMauro](https://github.com/JcMauro) | 10724269838 |
 | Gustavo de Espindola Martins | [gustavodees](https://github.com/gustavodees) | 10724238393 |
-| Nycolle Vieira | [NycolleVieira](https://github.com/NycolleVieira) |10723114148 |
+| Nycolle Vieira | [NycolleVieira](https://github.com/NycolleVieira) | 10723114148 |
 | Layse Gabrielly Silva Lima | [LAYSEGABI](https://github.com/LAYSEGABI) | 10724111931 |
+
+## Responsabilidades
+
+| Nome | Funcao | Responsabilidade |
+| --- | --- | --- |
+| Julio Cesar de Souza Mauro | Lider de equipe / DevOps / Desenvolvedor | Organizacao geral, acompanhamento das atividades, GitHub Actions, SonarCloud, ajustes de seguranca e apoio nos testes unitarios dos modelos. |
+| Gustavo de Espindola Martins | Desenvolvedor / Tester | Testes relacionados a produtos, estoque e relatorios. |
+| Layse Gabrielly Silva Lima | Desenvolvedora / Tester | Testes dos validadores de categoria, produto, estoque e usuario. |
+| Nycolle Vieira | Desenvolvedora / Tester | Testes relacionados a login, usuarios e validacoes de usuario. |
+
+### Distribuicao das Tarefas
+
+| Nome | Funcionalidade | Link do Teste |
+| --- | --- | --- |
+| Julio Cesar de Souza Mauro | Ajustes gerais do projeto, criacao da base de testes, testes unitarios dos modelos e apoio na estrutura de qualidade do projeto. | [CategoriaTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/modelo/CategoriaTest.java), [ProdutoTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/modelo/ProdutoTest.java), [UsuarioTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/modelo/UsuarioTest.java), [LoginTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/modelo/LoginTest.java) |
+| Nycolle Vieira | Testes relacionados a login, usuarios e integracao com o banco de dados, validando cenarios de sucesso e falha nas classes DAO. | [LoginDAOTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/dao/LoginDAOTest.java), [UsuarioDAOTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/dao/UsuarioDAOTest.java), [UsuarioValidadorTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/validacao/UsuarioValidadorTest.java) |
+| Layse Gabrielly Silva Lima | Testes unitarios dos validadores, cobrindo regras de categoria, estoque, produto e usuario com casos validos e invalidos. | [CategoriaValidadorTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/validacao/CategoriaValidadorTest.java), [EstoqueValidadorTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/validacao/EstoqueValidadorTest.java), [ProdutoValidadorTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/validacao/ProdutoValidadorTest.java), [UsuarioValidadorTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/validacao/UsuarioValidadorTest.java) |
+| Gustavo de Espindola Martins | Testes complementares de produto, estoque e relatorios, reforcando cenarios de busca, limites de estoque e relacionamento entre produto e categoria. | [ProdutoDAOTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/dao/ProdutoDAOTest.java), [ProdutoValidadorTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/validacao/ProdutoValidadorTest.java), [EstoqueValidadorTest.java](https://github.com/JcMauro/controledeestoque_a3/blob/main/src/test/java/validacao/EstoqueValidadorTest.java) |
 
 ## Requisitos Funcionais (RF)
 
