@@ -3,9 +3,8 @@
  *
  * Banco de dados: db_controledeestoque
  * Usuario padrao: root
- * Senha padrao: Unisul@1520
  *
- * Os dados tambem podem ser alterados pelas variaveis de ambiente:
+ * Os dados de conexao podem ser alterados pelas variaveis de ambiente:
  * DB_URL, DB_USER e DB_PASSWORD.
  *
  * @author luiz
@@ -20,7 +19,7 @@ public class ConexaoDAO {
 
     private final String URL = getValorAmbiente("DB_URL", "jdbc:mysql://localhost:3306/db_controledeestoque");
     private final String USER = getValorAmbiente("DB_USER", "root");
-    private final String PASSWORD = getValorAmbiente("DB_PASSWORD", "Unisul@1520");
+    private final String PASSWORD = getValorAmbiente("DB_PASSWORD", "");
 
     /**
      * Estabelece e retorna a conexao com o banco de dados.

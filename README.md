@@ -82,17 +82,18 @@ db_controledeestoque
 
 Dados padrao de conexao:
 
-```java
-String user = "root";
-String password = "Unisul@1520";
+```text
+DB_URL=jdbc:mysql://localhost:3306/db_controledeestoque
+DB_USER=root
+DB_PASSWORD=sua_senha_do_mysql
 ```
 
-Tambem e possivel configurar os dados de conexao por variaveis de ambiente:
+Por seguranca, a senha do banco nao fica salva no codigo-fonte. Configure os dados de conexao por variaveis de ambiente antes de executar o sistema ou os testes:
 
-```text
-DB_URL
-DB_USER
-DB_PASSWORD
+```powershell
+$env:DB_URL="jdbc:mysql://localhost:3306/db_controledeestoque"
+$env:DB_USER="root"
+$env:DB_PASSWORD="sua_senha_do_mysql"
 ```
 
 [Arquivo do Banco de Dados](database/db_controledeestoque.sql)

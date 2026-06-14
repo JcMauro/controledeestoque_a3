@@ -21,11 +21,16 @@ Este documento registra pequenas melhorias aplicadas ao sistema legado antes da 
    - Agora usa `PreparedStatement`, mantendo o mesmo funcionamento com mais seguranca.
 
 5. `ConexaoDAO`
-   - Mantem os dados padrao do banco local.
-   - Permite alterar URL, usuario e senha por variaveis de ambiente:
+   - Removeu a senha real do banco dos valores padrao do codigo.
+   - Mantem URL e usuario padrao para facilitar a execucao local.
+   - Permite configurar a senha por variavel de ambiente:
      - `DB_URL`
      - `DB_USER`
      - `DB_PASSWORD`
+
+6. `GitHub Actions`
+   - A senha real do banco local foi removida do workflow.
+   - O banco usado no CI passou a utilizar uma senha simples e descartavel, criada apenas para a execucao dos testes automatizados.
 
 ## Objetivo
 
